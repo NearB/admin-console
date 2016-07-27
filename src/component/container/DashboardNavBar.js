@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {
     Navbar, Nav, NavItem, NavDropdown,
-    MenuItem,
+    MenuItem,Col
 } from 'react-bootstrap';
 
 import '../../css/Home.css';
@@ -22,7 +22,7 @@ export default class DashboardNavBar extends Component {
 
   render() {
     return (
-        <Navbar fixedTop="true" bsStyle="inverse" role="navigation">
+        <Navbar fixedTop="true" bsStyle="inverse" role="navigation" fluid>
           <Navbar.Header>
             <Navbar.Brand>
               <a href="#">Near.B</a>
@@ -38,12 +38,12 @@ export default class DashboardNavBar extends Component {
             </NavDropdown>
           </Nav>
           <Navbar.Collapse>
-            <Nav bsClass="nav navbar-nav side-nav" stacked>
-              <NavItem eventKey={1} href="#"><Fa name="dashboard" fixedWidth="true"/>Dashboard</NavItem>
-              <NavItem eventKey={2} href="#"><Fa name="bar-chart" fixedWidth="true"/>Charts</NavItem>
-              <NavItem eventKey={3} href="#"><Fa name="table" fixedWidth="true"/>Tables</NavItem>
-              <NavItem eventKey={4} href="#"><Fa name="edit" fixedWidth="true"/>Forms</NavItem>
-            </Nav>
+              <Nav bsClass="nav navbar-nav side-nav">
+                <NavItem eventKey={1} href="#"><Fa name="dashboard" fixedWidth="true"/>Dashboard</NavItem>
+                <NavItem eventKey={2} href="#"><Fa name="bar-chart" fixedWidth="true"/>Charts</NavItem>
+                <NavItem eventKey={3} href="#"><Fa name="table" fixedWidth="true"/>Tables</NavItem>
+                <NavItem eventKey={4} href="#"><Fa name="edit" fixedWidth="true"/>Forms</NavItem>
+              </Nav>
           </Navbar.Collapse>
         </Navbar>
     );

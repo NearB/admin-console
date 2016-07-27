@@ -7,7 +7,6 @@ import Dashboard from './component/container/Dashboard';
 
 
 ReactDOM.render(
-    // <App />,
     <Router history={browserHistory}>
       <Route path="/" component={Home}/>
       <Route path="/users/:userId/dashboard" component={Dashboard} />

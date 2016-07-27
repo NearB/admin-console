@@ -1,11 +1,21 @@
 .dashboard {
   text-align: center;
   background-color: #ffffff;
+  height: 100%;
+}
+
+.store{
+  background-color: #ffffff;
+  height: 100%;
 }
 
 .add-block {
   text-align: center;
   background-color: #333;
   height: 150px;
+}
+
+.dashview {
+  background-color: #ffffff;
 }
 
