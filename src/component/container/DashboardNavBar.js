@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {
     Navbar, Nav, NavItem, NavDropdown,
-    MenuItem,Col
+    MenuItem
 } from 'react-bootstrap';
 
 import '../../css/Home.css';
@@ -22,27 +22,27 @@ export default class DashboardNavBar extends Component {
 
   render() {
     return (
-        <Navbar fixedTop="true" bsStyle="inverse" role="navigation" fluid>
+        <Navbar fixedTop={true} bsStyle="inverse" role="navigation" fluid>
           <Navbar.Header>
             <Navbar.Brand>
               <a href="#">Near.B</a>
             </Navbar.Brand>
             <Navbar.Toggle/>
           </Navbar.Header>
-          <Nav pullRight="true">
-            <NavDropdown eventKey={3} title={<Fa name="bell" fixedWidth="true"/>} id="alert-dropdown">
-              <MenuItem eventKey={1} href="#">Alerts</MenuItem>
-            </NavDropdown>
-            <NavDropdown title={<Fa name="user" fixedWidth="true"/>} id="user-dropdown">
-              <MenuItem eventKey={1} href="#">{this.state.user}</MenuItem>
-            </NavDropdown>
-          </Nav>
           <Navbar.Collapse>
+            <Nav pullRight={true}>
+              <NavDropdown eventKey={3} title={<Fa name="bell" fixedWidth={true}/>} id="alert-dropdown">
+                <MenuItem eventKey={1} href="#">Alerts</MenuItem>
+              </NavDropdown>
+              <NavDropdown title={<Fa name="user" fixedWidth={true}/>} id="user-dropdown">
+                <MenuItem eventKey={1} href="#">{this.state.user}</MenuItem>
+              </NavDropdown>
+            </Nav>
               <Nav bsClass="nav navbar-nav side-nav">
-                <NavItem eventKey={1} href="#"><Fa name="dashboard" fixedWidth="true"/>Dashboard</NavItem>
-                <NavItem eventKey={2} href="#"><Fa name="bar-chart" fixedWidth="true"/>Charts</NavItem>
-                <NavItem eventKey={3} href="#"><Fa name="table" fixedWidth="true"/>Tables</NavItem>
-                <NavItem eventKey={4} href="#"><Fa name="edit" fixedWidth="true"/>Forms</NavItem>
+                <NavItem eventKey={1} href="#"><Fa name="dashboard" fixedWidth={true}/>Dashboard</NavItem>
+                <NavItem eventKey={2} href="#"><Fa name="bar-chart" fixedWidth={true}/>Charts</NavItem>
+                <NavItem eventKey={3} href="#"><Fa name="table" fixedWidth={true}/>Tables</NavItem>
+                <NavItem eventKey={4} href="#"><Fa name="edit" fixedWidth={true}/>Forms</NavItem>
               </Nav>
           </Navbar.Collapse>
         </Navbar>

@@ -13,7 +13,7 @@ export default class MainLogin extends Component {
     return (
         <PageHeader bsClass="intro-header">
           <Row>
-            <Col lg='12'>
+            <Col lg={12}>
               <div className="intro-message">
                 <h1>Near.B</h1>
                 <h3>Lo que buscas esta cerca</h3>

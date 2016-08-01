@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 
-import {
-    Row, Col, Grid
-} from 'react-bootstrap';
+// import {
+//     Row, Col, Grid
+// } from 'react-bootstrap';
 
 import DashboardNavBar from './DashboardNavBar'
 import DashboardView from '../presentation/DashboardView'
-import Fa from 'react-fontawesome';
+// import Fa from 'react-fontawesome';
 
 import '../../css/Dashboard.css';
 import '../../css/sb-admin.css';
@@ -26,9 +26,7 @@ export default class Dashboard extends Component {
     return (
         <div className="container">
             <DashboardNavBar user={this.state.user}/>
-
-            <DashboardView />
-
+            <DashboardView user={this.state.user}/>
         </div>
     );
   }

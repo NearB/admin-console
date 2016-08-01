@@ -7,13 +7,7 @@ import {
 
 import Fa from 'react-fontawesome';
 
-
 export default class UserPasswordLogin extends Component {
-
-  constructor(props){
-    super(props);
-
-  }
 
   render(){
     return (
@@ -29,7 +23,7 @@ export default class UserPasswordLogin extends Component {
           </FormGroup>
           {' '}
           <Button>
-            <Fa name="sign-in" fixedWidth="true"/>
+            <Fa name="sign-in" fixedWidth={true}/>
             <span className="network-name">Login</span>
           </Button>
         </Form>

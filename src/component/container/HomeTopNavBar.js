@@ -4,8 +4,6 @@ import {
     MenuItem,
 } from 'react-bootstrap';
 
-import MainLogin from '../presentation/MainLogin'
-
 import '../../css/Home.css';
 import '../../css/landing-page.css';
 import '../../font-awesome/css/font-awesome.min.css';
@@ -13,7 +11,7 @@ import '../../font-awesome/css/font-awesome.min.css';
 export default class HomeTopNavBar extends Component {
   render() {
     return (
-        <Navbar fixedTop="true" bsStyle="inverse" role="navigation">
+        <Navbar fixedTop={true} bsStyle="inverse" role="navigation">
           <Navbar.Header>
             <Navbar.Brand>
               <a href="#">Near.B</a>
@@ -21,7 +19,7 @@ export default class HomeTopNavBar extends Component {
             <Navbar.Toggle/>
           </Navbar.Header>
           <Navbar.Collapse>
-            <Nav pullRight="true">
+            <Nav pullRight={true}>
               <NavItem eventKey={1} href="#">Contact Us</NavItem>
               <NavItem eventKey={2} href="#">About</NavItem>
               <NavDropdown eventKey={3} title="Features" id="basic-nav-dropdown">

@@ -1,36 +1,51 @@
 import React, {Component} from 'react';
-import {
-    PageHeader,
-    Row, Col,
-    ListGroup, ListGroupItem
-} from 'react-bootstrap';
+import fetch from 'request-promise';
 
-import UserPasswordLogin from '../presentation/UserPasswordLogin';
-import FacebookLogin from '../presentation/FacebookLogin';
+import StoresTable from '../presentation/StoresTable';
 
 export default class Stores extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      owner: props.owner,
+      stores: []
+    };
+
+    this._fetchStores = this._fetchStores.bind(this);
+    this.handleStoresUpdate = this.handleStoresUpdate.bind(this);
+  }
+
+  componentDidMount() {
+    this._fetchStores();
+  }
+
+  handleStoresUpdate(){
+    return this._fetchStores();
+  }
+
+  _fetchStores() {
+    return fetch({
+          uri: 'http://localhost:10001/api/stores',
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          json: true
+        }
+    ).then((res) => {
+      console.log(res);
+      this.setState({stores: res.result})
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
   render() {
     return (
-        <PageHeader bsClass="intro-header">
-          <Row>
-            <Col lg='12'>
-              <div className="intro-message">
-                <h1>Near.B</h1>
-                <h3>Lo que buscas esta cerca</h3>
-                <hr className="intro-divider"/>
-                <ListGroup>
-                  <ListGroupItem bsClass="">
-                    <UserPasswordLogin/>
-                  </ListGroupItem>
-                  <hr className="intro-divider"/>
-                  <ListGroupItem bsClass="">
-                    <FacebookLogin/>
-                  </ListGroupItem>
-                </ListGroup>
-              </div>
-            </Col>
-          </Row>
-        </PageHeader>
+        <StoresTable owner={this.state.owner} stores={this.state.stores}
+                     onUpdate={this.handleStoresUpdate}/>
     );
   }
 }
