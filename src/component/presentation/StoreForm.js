@@ -5,10 +5,9 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 
-import '../../css/Dashboard.css';
-import '../../css/sb-admin.css';
 
 export default class AddStoreModal extends Component {
+
   constructor(props) {
     super(props);
     console.log(props);

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import HomeTopNavBar from './HomeTopNavBar';
-import MainLogin from '../presentation/MainLogin';
+import MainLogin from './MainLogin';
 
 export default class Home extends Component {
   render() {
