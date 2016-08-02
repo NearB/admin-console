@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
 
+
+import Fa from 'react-fontawesome';
+import {Panel} from 'react-bootstrap';
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+
 import Stores from '../container/Stores'
 
 import {
@@ -14,48 +19,35 @@ export default class DashboardView extends Component {
 
   render() {
     return (
-        <div id="page-wrapper">
-          <div className="container-fluid">
+        <div id="page-wrapper" className="container-fluid">
             <Row>
               <Col lg={8}>
                 <Stores owner={this.user}/>
               </Col>
             </Row>
-
-            <div className="row">
-              <div className="col-lg-4">
-                <div className="panel panel-default">
-                  <div className="panel-heading">
-                    <h3 className="panel-title"><i className="fa fa-long-arrow-right fa-fw"></i> Donut Chart</h3>
+            <Row>
+              <Col lg={4}>
+                <Panel style={{marginTop: 20}} header={<i><Fa name="long-arrow-right" /> Donut Chart</i>}>
+                  <div id="morris-donut-chart"></div>
+                  <div className="text-right">
+                    <a href="#">View Details <i className="fa fa-arrow-circle-right"></i></a>
                   </div>
-                  <div className="panel-body">
-                    <div id="morris-donut-chart"></div>
-                    <div className="text-right">
-                      <a href="#">View Details <i className="fa fa-arrow-circle-right"></i></a>
-                    </div>
+                </Panel>
+              </Col>
+              <Col lg={4}>
+                <Panel style={{marginTop: 20}} header={<i><Fa name="clock-o" /> Tasks Panel</i>}>
+                  <div className="list-group">
+                    <a href="#" className="list-group-item">
+                      <span className="badge">23 minutes ago</span>
+                      <i className="fa fa-fw fa-truck"></i> Order 392 shipped
+                    </a>
                   </div>
-                </div>
-              </div>
-              <div className="col-lg-4">
-                <div className="panel panel-default">
-                  <div className="panel-heading">
-                    <h3 className="panel-title"><i className="fa fa-clock-o fa-fw"></i> Tasks Panel</h3>
+                  <div className="text-right">
+                    <a href="#">View All Activity <i className="fa fa-arrow-circle-right"></i></a>
                   </div>
-                  <div className="panel-body">
-                    <div className="list-group">
-                      <a href="#" className="list-group-item">
-                        <span className="badge">23 minutes ago</span>
-                        <i className="fa fa-fw fa-truck"></i> Order 392 shipped
-                      </a>
-                    </div>
-                    <div className="text-right">
-                      <a href="#">View All Activity <i className="fa fa-arrow-circle-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                </Panel>
+              </Col>
+            </Row>
         </div>
     );
   }

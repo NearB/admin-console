@@ -51,7 +51,7 @@ export default class UserPasswordLogin extends Component {
   }
 
   handleSubmit() {
-    browserHistory.push("/users/"+this.user+"/dashboard");
+    browserHistory.push(`/users/${this.user}/dashboard`);
   }
 
   render(){

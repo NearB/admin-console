@@ -5,6 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Home from './component/container/Home';
 import Dashboard from './component/container/Dashboard';
+import Store from './component/container/Store';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -16,6 +17,7 @@ const AppRouter = () => (
     <Router history={browserHistory}>
       <Route path="/" component={Home}/>
       <Route path="/users/:userId/dashboard" component={Dashboard}/>
+      <Route path="/users/:userId/stores/:storeId" component={Store}/>
     </Router>
 );
 
