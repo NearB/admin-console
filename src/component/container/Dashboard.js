@@ -24,7 +24,7 @@ export default class Dashboard extends Component {
   render() {
     // TODO remove className="container"
     return (
-        <div className="container">
+        <div id="wrapper">
             <DashboardNavBar user={this.state.user}/>
             <DashboardView user={this.state.user}/>
         </div>

@@ -11,6 +11,7 @@ import {
     Row, Col
 } from 'react-bootstrap';
 
+const style = {}
 export default class DashboardView extends Component {
   constructor(props){
     super(props);
@@ -19,7 +20,7 @@ export default class DashboardView extends Component {
 
   render() {
     return (
-        <div id="page-wrapper" className="container-fluid">
+        <div id="page-wrapper">
             <Row>
               <Col lg={8}>
                 <Stores owner={this.user}/>
