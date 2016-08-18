@@ -21,7 +21,7 @@
     "eslint-plugin-react": "5.2.2",
     "json-loader": "0.5.4",
     "json5": "^0.5.0",
-    "json5-loader": "^0.6.0",
+    "json5-loader": "git://github.com/webpack/json5-loader.git#8deb0e1f5ab64191705c8526b5906bac85f0dd06",
     "jsx-loader": "^0.13.2",
     "autoprefixer": "6.3.7",
     "babel-plugin-syntax-trailing-function-commas": "6.8.0",
