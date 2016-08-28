@@ -11,7 +11,7 @@ import UserPasswordLogin from '../presentation/UserPasswordLogin';
 export default class MainLogin extends Component {
   render() {
     return (
-        <PageHeader bsClass="intro-header">
+        <PageHeader bsClass="intro-header container-fluid">
           <Row>
             <Col lg={12}>
               <div className="intro-message">
