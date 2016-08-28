@@ -2,6 +2,7 @@ var path = require('path');
 var autoprefixer = require('autoprefixer');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var StringReplacePlugin = require('string-replace-webpack-plugin');
 
 // TODO: hide this behind a flag and eliminate dead code on eject.
 // This shouldn't be exposed to the user.
@@ -96,6 +97,18 @@ module.exports = {
       {
         test: /\.png/,
         loader: "url?limit=10000&mimetype=image/png"
+      },
+      {
+        test: /validate.js$/,
+        include: /node_modules\/json-schema/,
+        loader: StringReplacePlugin.replace({ // from the 'string-replace-webpack-plugin'
+          replacements: [{
+            pattern: /\(\{define:typeof define!="undefined"\?define:function\(deps, factory\)\{module\.exports = factory\(\);\}\}\)\./ig,
+            replacement: function(match, p1, offset, string) {
+              return false;
+            }
+          }]
+        })
       }
     ]
   },
@@ -114,6 +127,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' }),
     // Note: only CSS is currently hot reloaded
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new StringReplacePlugin()
   ]
 };

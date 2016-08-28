@@ -17,7 +17,7 @@ webpack(config).run(function(err, stats) {
     process.exit(1);
   }
 
-  var openCommand = process.platform === 'win32' ? 'start' : 'open';
+  var openCommand = process.platform === 'win32' ? 'start' : 'handleOpen';
   console.log('Successfully generated a bundle in the build folder!');
   console.log();
   console.log('You can now serve it with any static server, for example:');

@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 
-import {
-    Row,Col
-} from 'react-bootstrap';
+// import {
+//     Row, Col, Grid
+// } from 'react-bootstrap';
 
 import DashboardNavBar from './DashboardNavBar'
-import Fa from 'react-fontawesome';
+import DashboardView from '../presentation/DashboardView'
+// import Fa from 'react-fontawesome';
 
 import '../../css/Dashboard.css';
+import '../../css/sb-admin.css';
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -20,20 +22,11 @@ export default class Dashboard extends Component {
   }
 
   render() {
+    // TODO remove className="container"
     return (
-        <div className="dashboard">
-          <DashboardNavBar user={this.state.user}/>
-          <Row>
-            <Col md="4" bsClass="add-block">
-              <Fa name="plus"/>
-            </Col>
-            <Col md="4" bsClass="add-block">
-              <Fa name="plus"/>
-            </Col>
-            <Col md="4" bsClass="add-block">
-              <Fa name="plus"/>
-            </Col>
-          </Row>
+        <div id="wrapper">
+            <DashboardNavBar user={this.state.user}/>
+            <DashboardView user={this.state.user}/>
         </div>
     );
   }

@@ -1,6 +1,12 @@
 .dashboard {
   text-align: center;
   background-color: #ffffff;
+  height: 100%;
+}
+
+.store{
+  background-color: #ffffff;
+  height: 100%;
 }
 
 .add-block {
@@ -9,3 +15,10 @@
   height: 150px;
 }
 
+.dashview {
+  background-color: #ffffff;
+}
+
+#wrapper {
+  transition: all 0.4s ease 0s;
+}

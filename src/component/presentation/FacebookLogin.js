@@ -11,7 +11,7 @@ export default class FacebookLogin extends Component {
   render(){
     return (
         <Button>
-          <Fa name="facebook" fixedWidth="true"/>
+          <Fa name="facebook" fixedWidth={true}/>
           {' '}
           <span className="network-name">Login with Facebook</span>
         </Button>
