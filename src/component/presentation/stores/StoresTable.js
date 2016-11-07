@@ -5,8 +5,8 @@ import {browserHistory} from 'react-router';
 import {Panel} from 'react-bootstrap';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
-import AddStore from '../container/AddStore';
-
+import AddStore from '../../container/stores/AddStore';
+import Fa from 'react-fontawesome';
 
 export default class StoresTable extends Component {
   constructor(props) {
@@ -32,6 +32,12 @@ export default class StoresTable extends Component {
     browserHistory.push(`/users/${this.state.owner}/stores/${storeId}`);
   }
 
+  removeStore(storeId){
+    console.log(storeId);
+
+    // browserHistory.push(`/users/${this.state.owner}/stores/${storeId}`);
+  }
+
   render() {
     return (
         <div>
@@ -41,7 +47,12 @@ export default class StoresTable extends Component {
                 <TableRow style={{textAlign: "center"}}>
                   <TableHeaderColumn>Store</TableHeaderColumn>
                   <TableHeaderColumn>Address</TableHeaderColumn>
+                  <TableHeaderColumn>Locations</TableHeaderColumn>
+                  <TableHeaderColumn>Stock</TableHeaderColumn>
+                  <TableHeaderColumn>Ads</TableHeaderColumn>
+                  <TableHeaderColumn>Campaigns</TableHeaderColumn>
                   <TableHeaderColumn>Id</TableHeaderColumn>
+                  <TableHeaderColumn></TableHeaderColumn>
                 </TableRow>
               </TableHeader>
               <TableBody displayRowCheckbox={false} showRowHover={true}>
@@ -51,8 +62,17 @@ export default class StoresTable extends Component {
                   return (
                       <TableRow selectable={true} key={store._id}>
                         <TableRowColumn>{store.name}</TableRowColumn>
-                        <TableRowColumn>{store.location ? store.location.address : ''}</TableRowColumn>
+                        <TableRowColumn>{store.hasOwnProperty('address') ? store.address : ''}</TableRowColumn>
+                        <TableRowColumn>{store.locations.map(loc => {return loc.split(':')[1]}).join(',')}</TableRowColumn>
+                        <TableRowColumn>{store.stock.length}</TableRowColumn>
+                        <TableRowColumn>{store.adIds.length}</TableRowColumn>
+                        <TableRowColumn>{store.campaignIds.length}</TableRowColumn>
                         <TableRowColumn>{store._id}</TableRowColumn>
+                        <TableRowColumn>
+                          <a onClick={this.removeStore.bind(this, store._id)}>
+                            <Fa name='times'/>
+                          </a>
+                        </TableRowColumn>
                       </TableRow>
                   )
                 })}

@@ -5,7 +5,7 @@ import {
     ListGroup, ListGroupItem
 } from 'react-bootstrap';
 
-import UserPasswordLogin from '../presentation/UserPasswordLogin';
+import UserPasswordLogin from '../../presentation/accounts/UserPasswordLogin';
 // import FacebookLogin from './FacebookLogin';
 
 export default class MainLogin extends Component {

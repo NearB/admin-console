@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
-import DashboardNavBar from './DashboardNavBar';
-import ContentManager from './ContentManager';
+import DashboardNavBar from '../DashboardNavBar';
+import ContentManager from '../ContentManager';
 
 import {
     Row, Col
@@ -80,7 +80,7 @@ class ModuleChooser extends Component {
             </Col>
             <Col lg={3} onClick={this._analytics}>
               <Card>
-                <CardMedia overlay={<CardTitle title={STORE_MODULES.analytics} subtitle="Store Insights"/>}>
+                <CardMedia overlay={<CardTitle title={STORE_MODULES.analytics} subtitle="Product Insights"/>}>
                   <img src={require("../../img/pub_menu.png")}/>
                 </CardMedia>
               </Card>
@@ -92,12 +92,12 @@ class ModuleChooser extends Component {
 }
 
 
-export default class Store extends Component {
+export default class Product extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      id: props.params.storeId,
+      id: props.params.productId,
       showModule: ''
     };
 
@@ -113,20 +113,7 @@ export default class Store extends Component {
         <div id="wrapper">
           <DashboardNavBar user={this.state.user}/>
           <div id="page-wrapper" style={styles.root}>
-            {(() => {
-              switch (this.state.showModule) {
-                case STORE_MODULES.content:
-                  return <ContentManager storeId={this.state.id}/>;
-                case STORE_MODULES.marketing:
-                  return <ContentManager storeId={this.state.id}/>;
-                case STORE_MODULES.brand:
-                  return <ContentManager storeId={this.state.id}/>;
-                case STORE_MODULES.analytics:
-                  return <ContentManager storeId={this.state.id}/>;
-                default:
-                  return <ModuleChooser onChoice={this.chooseModule}/>;
-              }
-            })()}
+
           </div>
         </div>
 

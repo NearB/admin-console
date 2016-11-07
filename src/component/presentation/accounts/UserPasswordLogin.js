@@ -9,11 +9,16 @@ import {browserHistory} from 'react-router';
 
 import Fa from 'react-fontawesome';
 import _s from 'underscore.string';
-
+import fetch from 'request-promise';
 
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+
+const headers = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json',
+};
 
 export default class UserPasswordLogin extends Component {
 
@@ -51,7 +56,37 @@ export default class UserPasswordLogin extends Component {
   }
 
   handleSubmit() {
-    browserHistory.push(`/users/${this.user}/dashboard`);
+    fetch({
+      uri: `http://localhost:10001/api/users/${this.user}`,
+      method: 'GET',
+      headers: headers,
+      json: true
+    })
+    .then(res => {
+      if (res.data != null) {
+        browserHistory.push(`/users/${res.data._id}/dashboard`);
+      } else {
+        fetch({
+          uri: 'http://localhost:10001/api/users',
+          method: 'POST',
+          headers: headers,
+          body: {
+            username: this.user,
+            name: this.user,
+            stores: [],
+            filters: []
+          },
+          json: true
+        })
+        .then(res => {
+          browserHistory.push(`/users/${res.data._id}/dashboard`);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      }
+    })
+    .catch(console.log);
   }
 
   render(){

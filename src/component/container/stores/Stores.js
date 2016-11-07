@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import fetch from 'request-promise';
 
-import StoresTable from '../presentation/StoresTable';
+import StoresTable from '../../presentation/stores/StoresTable';
 
 export default class Stores extends Component {
   constructor(props) {
@@ -36,7 +36,7 @@ export default class Stores extends Component {
         }
     ).then((res) => {
       console.log(res);
-      this.setState({stores: res.result})
+      this.setState({stores: res.data})
     }).catch((error) => {
       console.log(error);
     });

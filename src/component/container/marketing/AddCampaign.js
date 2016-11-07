@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import fetch from 'request-promise';
 
-import StoreForm from '../presentation/StoreForm';
+import CampaignModal from '../../presentation/marketing/AddCampaignModal';
 import FlatButton from 'material-ui/FlatButton';
 
-export default class AddStore extends Component {
+export default class AddCampaign extends Component {
   constructor(props) {
     super(props);
 
@@ -28,16 +28,16 @@ export default class AddStore extends Component {
     this.setState({showModal: true});
   }
 
-  handleSubmit(storeData) {
+  handleSubmit(campaignData) {
     fetch({
-          uri: 'http://localhost:10001/api/stores',
+          uri: 'http://localhost:10001/api/marketing/campaigns',
           method: 'POST',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
           },
           json: true,
-          body: storeData
+          body: campaignData
         }
     ).then((res) => {
       console.log(res);
@@ -51,13 +51,12 @@ export default class AddStore extends Component {
   render() {
     return (
         <div style={{textAlign: "right"}}>
-          <FlatButton label="Add Store" primary={true} onTouchTap={this.handleOpen}/>
+          <FlatButton label="Create Campaign" primary={true} onTouchTap={this.handleOpen}/>
           {this.state.showModal ?
-              <StoreForm owner={this.owner} onClose={this.handleClose} onSubmit={this.handleSubmit}/>
+              <CampaignModal owner={this.owner} onClose={this.handleClose} onSubmit={this.handleSubmit}/>
               : null}
         </div>
 
     );
   }
 }
-

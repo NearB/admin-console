@@ -5,7 +5,10 @@ import Fa from 'react-fontawesome';
 import {Panel} from 'react-bootstrap';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
-import Stores from '../container/Stores'
+import Stores from '../container/stores/Stores'
+import Products from '../container/warehouse/Products'
+import Campaigns from '../container/marketing/Campaigns'
+import Ads from '../container/marketing/Ads'
 
 import {
     Row, Col
@@ -22,31 +25,21 @@ export default class DashboardView extends Component {
     return (
         <div id="page-wrapper">
             <Row>
-              <Col lg={8}>
+              <Col lg={12}>
                 <Stores owner={this.user}/>
               </Col>
             </Row>
             <Row>
-              <Col lg={4}>
-                <Panel style={{marginTop: 20}} header={<i><Fa name="long-arrow-right" /> Donut Chart</i>}>
-                  <div id="morris-donut-chart"></div>
-                  <div className="text-right">
-                    <a href="#">View Details <i className="fa fa-arrow-circle-right"></i></a>
-                  </div>
-                </Panel>
+              <Col lg={6}>
+                <Products owner={this.user}/>
               </Col>
-              <Col lg={4}>
-                <Panel style={{marginTop: 20}} header={<i><Fa name="clock-o" /> Tasks Panel</i>}>
-                  <div className="list-group">
-                    <a href="#" className="list-group-item">
-                      <span className="badge">23 minutes ago</span>
-                      <i className="fa fa-fw fa-truck"></i> Order 392 shipped
-                    </a>
-                  </div>
-                  <div className="text-right">
-                    <a href="#">View All Activity <i className="fa fa-arrow-circle-right"></i></a>
-                  </div>
-                </Panel>
+              <Col lg={6}>
+                <Ads owner={this.user}/>
+              </Col>
+            </Row>
+            <Row>
+              <Col lg={12}>
+                <Campaigns owner={this.user}/>
               </Col>
             </Row>
         </div>

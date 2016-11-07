@@ -5,7 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Home from './component/container/Home';
 import Dashboard from './component/container/Dashboard';
-import Store from './component/container/Store';
+import Store from './component/container/stores/Store';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
