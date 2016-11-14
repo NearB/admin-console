@@ -55,7 +55,7 @@ export default class AddProductModal extends Component {
   _toogleSubmit() {
     const disable = _s.isBlank(this.productData.name) ||
                     _s.isBlank(this.productData.img) ||
-                    this.productData.tags.length == 0;
+                    this.productData.tags.length === 0;
 
     if (this.state.disableSubmit !== disable) {
       this.setState({disableSubmit: disable})

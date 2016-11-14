@@ -51,7 +51,7 @@ export default class AddCampaignModal extends Component {
   _toogleSubmit() {
     const disable = _s.isBlank(this.campaignData.name) ||
                     _s.isBlank(this.campaignData.img) ||
-                    this.campaignData.tags.length == 0;
+                    this.campaignData.tags.length === 0;
 
     if (this.state.disableSubmit !== disable) {
       this.setState({disableSubmit: disable})

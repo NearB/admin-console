@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {
     PageHeader,
     Row, Col,
-    ListGroup, ListGroupItem
+    ListGroup,
+    // ListGroupItem
 } from 'react-bootstrap';
 
 import UserPasswordLogin from '../../presentation/accounts/UserPasswordLogin';
@@ -16,7 +17,7 @@ export default class MainLogin extends Component {
             <Col lg={12}>
               <div className="intro-message">
                 <h1>Near.B</h1>
-                <h3>Lo que buscas esta cerca</h3>
+                <h3>Lo que buscás está cerca</h3>
                 <hr className="intro-divider"/>
                 <ListGroup>
                   {/*<ListGroupItem bsClass="">*/}

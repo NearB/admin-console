@@ -55,7 +55,7 @@ export default class AddAdModal extends Component {
   _toogleSubmit() {
     const disable = _s.isBlank(this.adData.name) ||
                     _s.isBlank(this.adData.img) ||
-                    this.adData.tags.length == 0;
+                    this.adData.tags.length === 0;
 
     if (this.state.disableSubmit !== disable) {
       this.setState({disableSubmit: disable})

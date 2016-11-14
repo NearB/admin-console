@@ -59,7 +59,7 @@ export default class AddStoreModal extends Component {
     ];
 
     return (
-        <Dialog title="Store Data" actions={modalActions} modal={true} open={true} autoScrollBodyContent={true}>
+        <Dialog title="Store Data" actions={modalActions} modal={true} open={this.props.open} autoScrollBodyContent={true}>
           <TextField floatingLabelText="Store Name" hintText="Barbas Bar" onChange={this.handleNameUpdate}/>
           <br />
           <TextField floatingLabelText="Address" hintText="Humboldt 1879" onChange={this.handleAddressUpdate}/>

@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
 
-import Fa from 'react-fontawesome';
-import {Panel} from 'react-bootstrap';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+// import Fa from 'react-fontawesome';
+// import {Panel} from 'react-bootstrap';
+// import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
 import Stores from '../container/stores/Stores'
 import Products from '../container/warehouse/Products'
@@ -14,7 +14,11 @@ import {
     Row, Col
 } from 'react-bootstrap';
 
-const style = {}
+const style = {
+    paddingLeft: '15px',
+    paddingRight: '15px',
+};
+
 export default class DashboardView extends Component {
   constructor(props){
     super(props);
@@ -23,7 +27,7 @@ export default class DashboardView extends Component {
 
   render() {
     return (
-        <div id="page-wrapper">
+        <div id="page-wrapper" style={style}>
             <Row>
               <Col lg={12}>
                 <Stores owner={this.user}/>

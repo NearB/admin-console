@@ -18,14 +18,17 @@ export default class ProductsTable extends Component {
     };
 
     this.updateHandler = props.onUpdate;
-    this.goToProduct = this.goToProduct.bind(this);
+    this.handleRowSelection = this.handleRowSelection.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({products: nextProps.products})
+    this.setState({
+      products: nextProps.products,
+      height: nextProps.products.length > 6 ? '300px' : ''
+    })
   }
 
-  goToProduct(selectedProducts){
+  handleRowSelection(selectedProducts){
     const productId = this.state.products[selectedProducts[0]]._id;
     console.log(productId);
 
@@ -42,7 +45,9 @@ export default class ProductsTable extends Component {
     return (
         <div>
           <Panel style={{marginTop: 20}}>
-            <Table onRowSelection={this.goToProduct}>
+            <Table onRowSelection={this.handleRowSelection}
+                   height={this.state.height}
+                   fixedHeader={true}>
               <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableRow style={{textAlign: "center"}}>
                   <TableHeaderColumn>Product</TableHeaderColumn>
@@ -54,8 +59,8 @@ export default class ProductsTable extends Component {
               </TableHeader>
               <TableBody displayRowCheckbox={false} showRowHover={true}>
                 {this.state.products.map((product) => {
-                  {/*// TableRow has to be present here instead of being a separate component*/}
-                  {/*// as a workaround for bug where 'showRowHover' is not being propagated*/}
+                  // TableRow has to be present here instead of being a separate component
+                  // as a workaround for bug where 'showRowHover' is not being propagated
                   return (
                       <TableRow selectable={true} key={product._id}>
                         <TableRowColumn>{product.name}</TableRowColumn>

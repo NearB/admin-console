@@ -30,39 +30,26 @@ class ModuleChooser extends Component {
 
     this.choose = props.onChoice;
 
-    this._content = this._content.bind(this);
-    this._marketing = this._marketing.bind(this);
-    this._brand = this._brand.bind(this);
-    this._analytics = this._analytics.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  _content() {
-    this.choose(STORE_MODULES.content);
-  }
-
-  _marketing() {
-    this.choose(STORE_MODULES.marketing);
-  }
-
-  _brand() {
-    this.choose(STORE_MODULES.brand);
-  }
-
-  _analytics() {
-    this.choose(STORE_MODULES.analytics);
+  handleClick(module) {
+    return () => {
+      this.choose(module);
+    }
   }
 
   render() {
     return (<div>
           <Row>
             <Col lg={3}>
-              <Card onClick={this._content}>
+              <Card onClick={this.handleClick(STORE_MODULES.content)}>
                 <CardMedia overlay={<CardTitle title={STORE_MODULES.content} subtitle="Marketing Campaigns"/>}>
                   <img src={require("../../../img/pub_menu.png")}/>
                 </CardMedia>
               </Card>
             </Col>
-            <Col lg={3} onClick={this._marketing}>
+            <Col lg={3} onClick={this.handleClick(STORE_MODULES.marketing)}>
               <Card>
                 <CardMedia overlay={<CardTitle title={STORE_MODULES.marketing} subtitle="Marketing Campaigns"/>}>
                   <img src={require("../../../img/pub_menu.png")}/>
@@ -71,14 +58,14 @@ class ModuleChooser extends Component {
             </Col>
           </Row>
           <Row>
-            <Col lg={3} onClick={this._brand}>
+            <Col lg={3} onClick={this.handleClick(STORE_MODULES.brand)}>
               <Card>
                 <CardMedia overlay={<CardTitle title={STORE_MODULES.brand} subtitle="Brand Customization"/>}>
                   <img src={require("../../../img/pub_menu.png")}/>
                 </CardMedia>
               </Card>
             </Col>
-            <Col lg={3} onClick={this._analytics}>
+            <Col lg={3} onClick={this.handleClick(STORE_MODULES.analytics)}>
               <Card>
                 <CardMedia overlay={<CardTitle title={STORE_MODULES.analytics} subtitle="Store Insights"/>}>
                   <img src={require("../../../img/pub_menu.png")}/>
@@ -101,10 +88,10 @@ export default class Store extends Component {
       showModule: ''
     };
 
-    this.chooseModule = this.chooseModule.bind(this);
+    this.handleChoice = this.handleChoice.bind(this);
   }
 
-  chooseModule(module) {
+  handleChoice(module) {
     this.setState({showModule: module});
   }
 
@@ -124,7 +111,7 @@ export default class Store extends Component {
                 case STORE_MODULES.analytics:
                   return <ContentManager storeId={this.state.id}/>;
                 default:
-                  return <ModuleChooser onChoice={this.chooseModule}/>;
+                  return <ModuleChooser onChoice={this.handleChoice}/>;
               }
             })()}
           </div>

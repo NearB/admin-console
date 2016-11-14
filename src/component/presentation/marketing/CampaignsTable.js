@@ -18,14 +18,17 @@ export default class CampaignsTable extends Component {
     };
 
     this.updateHandler = props.onUpdate;
-    this.goToCampaign = this.goToCampaign.bind(this);
+    this.handleRowSelection = this.handleRowSelection.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({campaigns: nextProps.campaigns})
+    this.setState({
+      campaigns: nextProps.campaigns,
+      height: nextProps.campaigns.length > 6 ? '300px' : ''
+    })
   }
 
-  goToCampaign(selectedCampaigns){
+  handleRowSelection(selectedCampaigns){
     const campaignId = this.state.campaigns[selectedCampaigns[0]]._id;
     console.log(campaignId);
 
@@ -42,7 +45,9 @@ export default class CampaignsTable extends Component {
     return (
         <div>
           <Panel style={{marginTop: 20}}>
-            <Table onRowSelection={this.goToCampaign}>
+            <Table onRowSelection={this.handleRowSelection}
+                   height={this.state.height}
+                   fixedHeader={true}>
               <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableRow style={{textAlign: "center"}}>
                   <TableHeaderColumn>Campaign</TableHeaderColumn>
@@ -55,8 +60,8 @@ export default class CampaignsTable extends Component {
               </TableHeader>
               <TableBody displayRowCheckbox={false} showRowHover={true}>
                 {this.state.campaigns.map((campaign) => {
-                  {/*// TableRow has to be present here instead of being a separate component*/}
-                  {/*// as a workaround for bug where 'showRowHover' is not being propagated*/}
+                  // TableRow has to be present here instead of being a separate component
+                  // as a workaround for bug where 'showRowHover' is not being propagated
                   return (
                       <TableRow selectable={true} key={campaign._id}>
                         <TableRowColumn>{campaign.name}</TableRowColumn>

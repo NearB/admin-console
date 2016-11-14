@@ -18,14 +18,17 @@ export default class AdsTable extends Component {
     };
 
     this.updateHandler = props.onUpdate;
-    this.goToAd = this.goToAd.bind(this);
+    this.handleRowSelection = this.handleRowSelection.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ads: nextProps.ads})
+    this.setState({
+      ads: nextProps.ads,
+      height: nextProps.ads.length > 6 ? '300px' : ''
+    })
   }
 
-  goToAd(selectedAds){
+  handleRowSelection(selectedAds){
     const adId = this.state.ads[selectedAds[0]]._id;
     console.log(adId);
 
@@ -42,7 +45,9 @@ export default class AdsTable extends Component {
     return (
         <div>
           <Panel style={{marginTop: 20}}>
-            <Table onRowSelection={this.goToAd}>
+            <Table onRowSelection={this.handleRowSelection}
+                   height={this.state.height}
+                   fixedHeader={true}>
               <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableRow style={{textAlign: "center"}}>
                   <TableHeaderColumn>Ad</TableHeaderColumn>
@@ -53,8 +58,8 @@ export default class AdsTable extends Component {
               </TableHeader>
               <TableBody displayRowCheckbox={false} showRowHover={true}>
                 {this.state.ads.map((ad) => {
-                  {/*// TableRow has to be present here instead of being a separate component*/}
-                  {/*// as a workaround for bug where 'showRowHover' is not being propagated*/}
+                  // TableRow has to be present here instead of being a separate component
+                  // as a workaround for bug where 'showRowHover' is not being propagated
                   return (
                       <TableRow selectable={true} key={ad._id}>
                         <TableRowColumn>{ad.name}</TableRowColumn>

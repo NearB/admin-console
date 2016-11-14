@@ -52,9 +52,12 @@ export default class AddStore extends Component {
     return (
         <div style={{textAlign: "right"}}>
           <FlatButton label="Create Store" primary={true} onTouchTap={this.handleOpen}/>
-          {this.state.showModal ?
-              <StoreModal owner={this.owner} onClose={this.handleClose} onSubmit={this.handleSubmit}/>
-              : null}
+          <StoreModal
+              owner={this.owner} 
+              onClose={this.handleClose}
+              onSubmit={this.handleSubmit}
+              open={this.state.showModal}
+          />
         </div>
 
     );
