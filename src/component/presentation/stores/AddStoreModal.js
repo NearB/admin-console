@@ -13,11 +13,9 @@ export default class AddStoreModal extends Component {
     console.log(props);
 
     this.storeData = {
-      owner: props.owner,
+      ownerId: props.ownerId,
       name: '',
-      location: {
-        address: ''
-      }
+      address: ''
     };
 
     this.state = {
@@ -37,12 +35,12 @@ export default class AddStoreModal extends Component {
   }
 
   handleAddressUpdate(address) {
-    this.storeData.location.address = address.target.value;
+    this.storeData.address = address.target.value;
     this._toogleSubmit();
   }
 
   _toogleSubmit() {
-    const disable = _s.isBlank(this.storeData.name) || _s.isBlank(this.storeData.location.address);
+    const disable = _s.isBlank(this.storeData.name) || _s.isBlank(this.storeData.address);
     if (this.state.disableSubmit !== disable) {
       this.setState({disableSubmit: disable})
     }
