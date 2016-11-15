@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-
 import {browserHistory} from 'react-router';
-
 import {Panel} from 'react-bootstrap';
+import Fa from 'react-fontawesome';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import FlatButton from 'material-ui/FlatButton';
+import fetch from 'request-promise';
 
 import AddStore from '../../container/stores/AddStore';
-import Fa from 'react-fontawesome';
+
 
 export default class StoresTable extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ export default class StoresTable extends Component {
 
     this.updateHandler = props.onUpdate;
     this.handleRowSelection = this.handleRowSelection.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -36,10 +38,8 @@ export default class StoresTable extends Component {
     browserHistory.push(`/users/${this.state.owner}/stores/${storeId}`);
   }
 
-  removeStore(storeId) {
-    console.log(storeId);
-
-    // browserHistory.push(`/users/${this.state.owner}/stores/${storeId}`);
+  handleRemove(res) {
+    return this.updateHandler();
   }
 
   render() {
@@ -76,9 +76,12 @@ export default class StoresTable extends Component {
                   <TableRowColumn>{store.campaignIds.length}</TableRowColumn>
                   <TableRowColumn>{store._id}</TableRowColumn>
                   <TableRowColumn>
-                    <a onClick={this.removeStore.bind(this, store._id)}>
-                      <Fa name='times'/>
-                    </a>
+                    <RemoveButton
+                      resource='stores'
+                      resourceId={store._id}
+                      onRemove={this.handleRemove}
+                      icon={<Fa name='times'/>}
+                    />
                   </TableRowColumn>
                 </TableRow>
               )
@@ -90,3 +93,52 @@ export default class StoresTable extends Component {
     );
   }
 }
+
+class RemoveButton extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(e) {
+    // To avoid row selection
+    e.preventDefault();
+    e.stopPropagation();
+
+    fetch({
+        uri: `http://localhost:10001/api/${this.props.resource}/${this.props.resourceId}`,
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        json: true,
+      }
+    )
+      .then((res) => {
+        return this.props.onRemove(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  render() {
+    return (
+      <FlatButton
+        onClick={this.handleClick}
+        icon={<Fa name='times'/>}
+      />
+    );
+  }
+}
+
+RemoveButton.propTypes = {
+  resource: React.PropTypes.string.isRequired,
+  resourceId: React.PropTypes.string.isRequired,
+  onRemove: React.PropTypes.func
+};
+
+RemoveButton.defaultProps = {
+  onRemove: () => {}
+};
