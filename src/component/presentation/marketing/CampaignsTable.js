@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-
 import {browserHistory} from 'react-router';
-
 import {Panel} from 'react-bootstrap';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
+import RemoveButton from '../../shared/RemoveButton';
 import AddCampaign from '../../container/marketing/AddCampaign';
-import Fa from 'react-fontawesome';
+
 
 export default class CampaignsTable extends Component {
   constructor(props) {
@@ -19,6 +18,7 @@ export default class CampaignsTable extends Component {
 
     this.updateHandler = props.onUpdate;
     this.handleRowSelection = this.handleRowSelection.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -35,10 +35,8 @@ export default class CampaignsTable extends Component {
     browserHistory.push(`/users/${this.state.owner}/campaigns/${campaignId}`);
   }
 
-  removeStore(campaignId){
-    console.log(campaignId);
-
-    // browserHistory.push(`/users/${this.state.owner}/stores/${storeId}`);
+  handleRemove(res) {
+    return this.updateHandler();
   }
 
   render() {
@@ -70,9 +68,11 @@ export default class CampaignsTable extends Component {
                         <TableRowColumn>{campaign.hasOwnProperty('expiration') ? campaign.expiration : ''}</TableRowColumn>
                         <TableRowColumn>{campaign._id}</TableRowColumn>
                           <TableRowColumn>
-                            <a onClick={this.removeStore.bind(this, campaign._id)}>
-                              <Fa name='times'/>
-                            </a>
+                            <RemoveButton
+                              resource='marketing/campaigns'
+                              resourceId={campaign._id}
+                              onRemove={this.handleRemove}
+                            />
                           </TableRowColumn>
                       </TableRow>
                   )

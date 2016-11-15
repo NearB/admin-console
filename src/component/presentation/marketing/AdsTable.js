@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-
 import {browserHistory} from 'react-router';
-
 import {Panel} from 'react-bootstrap';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
+import RemoveButton from '../../shared/RemoveButton';
 import AddAd from '../../container/marketing/AddAd';
-import Fa from 'react-fontawesome';
+
 
 export default class AdsTable extends Component {
   constructor(props) {
@@ -19,6 +18,7 @@ export default class AdsTable extends Component {
 
     this.updateHandler = props.onUpdate;
     this.handleRowSelection = this.handleRowSelection.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -35,10 +35,8 @@ export default class AdsTable extends Component {
     browserHistory.push(`/users/${this.state.owner}/ads/${adId}`);
   }
 
-  removeStore(adId){
-    console.log(adId);
-
-    // browserHistory.push(`/users/${this.state.owner}/stores/${storeId}`);
+  handleRemove(res) {
+    return this.updateHandler();
   }
 
   render() {
@@ -66,9 +64,11 @@ export default class AdsTable extends Component {
                         <TableRowColumn>{ad.tags.join(',')}</TableRowColumn>
                         <TableRowColumn>{ad._id}</TableRowColumn>
                           <TableRowColumn>
-                            <a onClick={this.removeStore.bind(this, ad._id)}>
-                              <Fa name='times'/>
-                            </a>
+                            <RemoveButton
+                              resource='marketing/ads'
+                              resourceId={ad._id}
+                              onRemove={this.handleRemove}
+                            />
                           </TableRowColumn>
                       </TableRow>
                   )
