@@ -4,7 +4,7 @@ import _s from 'underscore.string';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
 import {Panel} from 'react-bootstrap';
 
 
