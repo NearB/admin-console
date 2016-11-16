@@ -79,7 +79,7 @@ export default class CampaignsTable extends Component {
                 })}
               </TableBody>
             </Table>
-            <AddCampaign callback={this.updateHandler}/>
+            <AddCampaign callback={this.updateHandler} ads={this.props.ads}/>
           </Panel>
         </div>
     );

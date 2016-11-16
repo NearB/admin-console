@@ -53,7 +53,7 @@ export default class AddCampaign extends Component {
         <div style={{textAlign: "right"}}>
           <FlatButton label="Create Campaign" primary={true} onTouchTap={this.handleOpen}/>
           {this.state.showModal ?
-              <CampaignModal owner={this.owner} onClose={this.handleClose} onSubmit={this.handleSubmit}/>
+              <CampaignModal owner={this.owner} ads={this.props.ads} onClose={this.handleClose} onSubmit={this.handleSubmit}/>
               : null}
         </div>
 
