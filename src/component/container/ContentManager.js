@@ -9,7 +9,8 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import fetch from 'request-promise';
+
+import api from 'services/api';
 
 const iconButtonElement = (
     <IconButton touch={true} tooltip="more" tooltipPosition="bottom-left">
@@ -24,6 +25,7 @@ const rightIconMenu = (
       <MenuItem>Delete</MenuItem>
     </IconMenu>
 );
+
 
 export default class ContentManager extends Component {
 
@@ -42,21 +44,14 @@ export default class ContentManager extends Component {
   }
 
   _fetchContent() {
-    fetch({
-          uri: `http://localhost:10001/api/stores/${this.state.storeId}/stock`,
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          json: true
-        }
-    ).then((res) => {
-      console.log(res);
-      this.setState({content: res.result})
-    }).catch((error) => {
-      console.log(error);
-    });
+    return api(`stores/${this.state.storeId}/stock`)
+      .then((res) => {
+        console.log(res);
+        this.setState({content: res.result})
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   render() {

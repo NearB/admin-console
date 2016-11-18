@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import fetch from 'request-promise';
 
 import CampaignsTable from '../../presentation/marketing/CampaignsTable';
+
+import api from 'services/api';
 
 export default class Campaigns extends Component {
   constructor(props) {
@@ -27,37 +28,23 @@ export default class Campaigns extends Component {
   }
 
   _fetchCampaigns() {
-    return fetch({
-          uri: 'http://localhost:10001/api/marketing/campaigns',
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          json: true
-        }
-    ).then((res) => {
-      this.setState({campaigns: res.data})
-    }).catch((error) => {
-      console.log(error);
-    });
+    return api('marketing/campaigns')
+      .then((res) => {
+        this.setState({campaigns: res.data})
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   _fetchAds() {
-    return fetch({
-        uri: 'http://localhost:10001/api/marketing/ads',
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        json: true
-      }
-    ).then((res) => {
-      this.setState({ads: res.data})
-    }).catch((error) => {
-      console.log(error);
-    });
+    return api('marketing/ads')
+      .then((res) => {
+        this.setState({ads: res.data})
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   render() {

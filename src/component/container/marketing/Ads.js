@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import fetch from 'request-promise';
 
 import AdsTable from '../../presentation/marketing/AdsTable';
+
+import api from 'services/api';
 
 export default class Ads extends Component {
   constructor(props) {
@@ -25,20 +26,13 @@ export default class Ads extends Component {
   }
 
   _fetchAds() {
-    return fetch({
-          uri: 'http://localhost:10001/api/marketing/ads',
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          json: true
-        }
-    ).then((res) => {
-      this.setState({ads: res.data})
-    }).catch((error) => {
-      console.log(error);
-    });
+    return api('marketing/ads')
+      .then((res) => {
+        this.setState({ads: res.data})
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   render() {

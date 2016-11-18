@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import fetch from 'request-promise';
 
 import ProductsTable from '../../presentation/warehouse/ProductsTable';
+
+import api from 'services/api';
 
 export default class Products extends Component {
   constructor(props) {
@@ -25,20 +26,13 @@ export default class Products extends Component {
   }
 
   _fetchProducts() {
-    return fetch({
-          uri: 'http://localhost:10001/api/products',
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          json: true
-        }
-    ).then((res) => {
-      this.setState({products: res.data})
-    }).catch((error) => {
-      console.log(error);
-    });
+    return api('products')
+      .then((res) => {
+        this.setState({products: res.data})
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   render() {

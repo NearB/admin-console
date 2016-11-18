@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import fetch from 'request-promise';
 
 import StoresTable from '../../presentation/stores/StoresTable';
+
+import api from 'services/api';
 
 export default class Stores extends Component {
   constructor(props) {
@@ -25,20 +26,13 @@ export default class Stores extends Component {
   }
 
   _fetchStores() {
-    return fetch({
-          uri: 'http://localhost:10001/api/stores',
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          json: true
-        }
-    ).then((res) => {
-      this.setState({stores: res.data})
-    }).catch((error) => {
-      console.log(error);
-    });
+    return api('stores')
+      .then((res) => {
+        this.setState({stores: res.data})
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   render() {

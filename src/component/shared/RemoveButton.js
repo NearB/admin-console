@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import Fa from 'react-fontawesome';
-import fetch from 'request-promise';
+
+import api from 'services/api';
 
 export default class RemoveButton extends Component {
   constructor(props) {
@@ -14,16 +15,7 @@ export default class RemoveButton extends Component {
     e.preventDefault();
     e.stopPropagation();
 
-    fetch({
-        uri: `http://localhost:10001/api/${this.props.resource}/${this.props.resourceId}`,
-        method: 'DELETE',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        json: true,
-      }
-    )
+    api.delete(`${this.props.resource}/${this.props.resourceId}`)
       .then((res) => {
         return this.props.onRemove(res);
       })

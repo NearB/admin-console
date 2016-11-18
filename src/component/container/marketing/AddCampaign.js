@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import fetch from 'request-promise';
 
 import CampaignModal from '../../presentation/marketing/AddCampaignModal';
 import FlatButton from 'material-ui/FlatButton';
+
+import api from 'services/api';
 
 export default class AddCampaign extends Component {
   constructor(props) {
@@ -29,22 +30,14 @@ export default class AddCampaign extends Component {
   }
 
   handleSubmit(campaignData) {
-    fetch({
-          uri: 'http://localhost:10001/api/marketing/campaigns',
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          json: true,
-          body: campaignData
-        }
-    ).then((res) => {
-      console.log(res);
-      return this.callback();
-    }).catch((error) => {
-      console.log(error);
-    });
+    api.post('marketing/campaigns', campaignData)
+      .then((res) => {
+        console.log(res);
+        return this.callback();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     this.handleClose();
   }
 

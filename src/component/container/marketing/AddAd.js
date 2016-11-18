@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-import fetch from 'request-promise';
 
 import AdModal from '../../presentation/marketing/AddAdModal';
 import FlatButton from 'material-ui/FlatButton';
+
+import api from 'services/api';
+
 
 export default class AddAd extends Component {
   constructor(props) {
@@ -29,22 +31,15 @@ export default class AddAd extends Component {
   }
 
   handleSubmit(adData) {
-    fetch({
-          uri: 'http://localhost:10001/api/marketing/ads',
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          json: true,
-          body: adData
-        }
-    ).then((res) => {
-      console.log(res);
-      return this.callback();
-    }).catch((error) => {
-      console.log(error);
-    });
+    api.post('marketing/ads', adData)
+      .then((res) => {
+        console.log(res);
+        return this.callback();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     this.handleClose();
   }
 

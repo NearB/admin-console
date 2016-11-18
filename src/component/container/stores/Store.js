@@ -11,6 +11,8 @@ const styles = {
   root: {
     display: 'flex',
     flexWrap: 'wrap',
+    paddingLeft: '15px',
+    paddingRight: '15px',
   },
   gridList: {
     width: 500,

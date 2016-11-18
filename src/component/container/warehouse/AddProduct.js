@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import fetch from 'request-promise';
 
 import ProductModal from '../../presentation/warehouse/AddProductModal';
 import FlatButton from 'material-ui/FlatButton';
+
+import api from 'services/api';
 
 export default class AddProduct extends Component {
   constructor(props) {
@@ -28,22 +29,15 @@ export default class AddProduct extends Component {
   }
 
   handleSubmit(productData) {
-    fetch({
-          uri: 'http://localhost:10001/api/products',
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          json: true,
-          body: productData
-        }
-    ).then((res) => {
-      console.log(res);
-      return this.callback();
-    }).catch((error) => {
-      console.log(error);
-    });
+    api.post('products', productData)
+      .then((res) => {
+        console.log(res);
+        return this.callback();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     this.handleClose();
   }
 

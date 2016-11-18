@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import fetch from 'request-promise';
 
 import StoreModal from '../../presentation/stores/AddStoreModal';
 import FlatButton from 'material-ui/FlatButton';
+
+import api from 'services/api';
 
 export default class AddStore extends Component {
   constructor(props) {
@@ -29,22 +30,15 @@ export default class AddStore extends Component {
   }
 
   handleSubmit(storeData) {
-    fetch({
-          uri: 'http://localhost:10001/api/stores',
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          json: true,
-          body: storeData
-        }
-    ).then((res) => {
-      console.log(res);
-      return this.callback();
-    }).catch((error) => {
-      console.log(error);
-    });
+    api.post('stores', storeData)
+      .then((res) => {
+        console.log(res);
+        return this.callback();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     this.handleClose();
   }
 
