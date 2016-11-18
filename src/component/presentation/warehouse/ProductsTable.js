@@ -41,45 +41,43 @@ export default class ProductsTable extends Component {
 
   render() {
     return (
-        <div>
-          <Panel style={{marginTop: 20}}>
-            <Table onRowSelection={this.handleRowSelection}
-                   height={this.state.height}
-                   fixedHeader={true}>
-              <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-                <TableRow style={{textAlign: "center"}}>
-                  <TableHeaderColumn>Product</TableHeaderColumn>
-                  <TableHeaderColumn>Tags</TableHeaderColumn>
-                  <TableHeaderColumn>Img</TableHeaderColumn>
-                  <TableHeaderColumn>Id</TableHeaderColumn>
-                  <TableHeaderColumn></TableHeaderColumn>
+      <Panel style={{marginTop: 20}}>
+        <Table onRowSelection={this.handleRowSelection}
+               height={this.state.height}
+               fixedHeader={true}>
+          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+            <TableRow style={{textAlign: "center"}}>
+              <TableHeaderColumn>Product</TableHeaderColumn>
+              <TableHeaderColumn>Tags</TableHeaderColumn>
+              <TableHeaderColumn>Img</TableHeaderColumn>
+              <TableHeaderColumn>Id</TableHeaderColumn>
+              <TableHeaderColumn></TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody displayRowCheckbox={false} showRowHover={true}>
+            {this.state.products.map((product) => {
+              // TableRow has to be present here instead of being a separate component
+              // as a workaround for bug where 'showRowHover' is not being propagated
+              return (
+                <TableRow selectable={true} key={product._id}>
+                  <TableRowColumn>{product.name}</TableRowColumn>
+                  <TableRowColumn>{product.tags.join(',')}</TableRowColumn>
+                  <TableRowColumn>{product.img}</TableRowColumn>
+                  <TableRowColumn>{product._id}</TableRowColumn>
+                  <TableRowColumn>
+                    <RemoveButton
+                      resource='products'
+                      resourceId={product._id}
+                      onRemove={this.handleRemove}
+                    />
+                  </TableRowColumn>
                 </TableRow>
-              </TableHeader>
-              <TableBody displayRowCheckbox={false} showRowHover={true}>
-                {this.state.products.map((product) => {
-                  // TableRow has to be present here instead of being a separate component
-                  // as a workaround for bug where 'showRowHover' is not being propagated
-                  return (
-                      <TableRow selectable={true} key={product._id}>
-                        <TableRowColumn>{product.name}</TableRowColumn>
-                        <TableRowColumn>{product.tags.join(',')}</TableRowColumn>
-                        <TableRowColumn>{product.img}</TableRowColumn>
-                        <TableRowColumn>{product._id}</TableRowColumn>
-                          <TableRowColumn>
-                            <RemoveButton
-                              resource='products'
-                              resourceId={product._id}
-                              onRemove={this.handleRemove}
-                            />
-                          </TableRowColumn>
-                      </TableRow>
-                  )
-                })}
-              </TableBody>
-            </Table>
-            <AddProduct callback={this.updateHandler}/>
-          </Panel>
-        </div>
+              )
+            })}
+          </TableBody>
+        </Table>
+        <AddProduct callback={this.updateHandler}/>
+      </Panel>
     );
   }
 }

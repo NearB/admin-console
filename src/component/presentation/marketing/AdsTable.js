@@ -59,18 +59,18 @@ export default class AdsTable extends Component {
                   // TableRow has to be present here instead of being a separate component
                   // as a workaround for bug where 'showRowHover' is not being propagated
                   return (
-                      <TableRow selectable={true} key={ad._id}>
-                        <TableRowColumn>{ad.name}</TableRowColumn>
-                        <TableRowColumn>{ad.tags.join(',')}</TableRowColumn>
-                        <TableRowColumn>{ad._id}</TableRowColumn>
-                          <TableRowColumn>
-                            <RemoveButton
-                              resource='marketing/ads'
-                              resourceId={ad._id}
-                              onRemove={this.handleRemove}
-                            />
-                          </TableRowColumn>
-                      </TableRow>
+                    <TableRow selectable={true} key={ad._id}>
+                      <TableRowColumn>{ad.name}</TableRowColumn>
+                      <TableRowColumn>{ad.tags.join(',')}</TableRowColumn>
+                      <TableRowColumn>{ad._id}</TableRowColumn>
+                      <TableRowColumn>
+                        <RemoveButton
+                          resource='marketing/ads'
+                          resourceId={ad._id}
+                          onRemove={this.handleRemove}
+                        />
+                      </TableRowColumn>
+                    </TableRow>
                   )
                 })}
               </TableBody>

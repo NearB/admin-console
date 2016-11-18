@@ -93,7 +93,7 @@ export default class AddCampaignModal extends Component {
         <TextField floatingLabelText="description" hintText="Long description of the campaign" onChange={this.handleDescriptionUpdate}/>
         <br />
         <br />
-        <Panel collapsible header="Choose ads">
+        <Panel collapsible defaultExpanded={true} header="Choose ads">
           <Table height='200px' multiSelectable={true} onRowSelection={this.handleAdSelection}>
             <TableBody>
               {this.props.ads.map((ad) => {

@@ -42,47 +42,45 @@ export default class CampaignsTable extends Component {
 
   render() {
     return (
-        <div>
-          <Panel style={{marginTop: 20}}>
-            <Table onRowSelection={this.handleRowSelection}
-                   height={this.state.height}
-                   fixedHeader={true}>
-              <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-                <TableRow style={{textAlign: "center"}}>
-                  <TableHeaderColumn>Campaign</TableHeaderColumn>
-                  <TableHeaderColumn>Tags</TableHeaderColumn>
-                  <TableHeaderColumn>Ads</TableHeaderColumn>
-                  <TableHeaderColumn>Expiration</TableHeaderColumn>
-                  <TableHeaderColumn>Id</TableHeaderColumn>
-                  <TableHeaderColumn></TableHeaderColumn>
+      <Panel style={{marginTop: 20}}>
+        <Table onRowSelection={this.handleRowSelection}
+               height={this.state.height}
+               fixedHeader={true}>
+          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+            <TableRow style={{textAlign: "center"}}>
+              <TableHeaderColumn>Campaign</TableHeaderColumn>
+              <TableHeaderColumn>Tags</TableHeaderColumn>
+              <TableHeaderColumn>Ads</TableHeaderColumn>
+              <TableHeaderColumn>Expiration</TableHeaderColumn>
+              <TableHeaderColumn>Id</TableHeaderColumn>
+              <TableHeaderColumn></TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody displayRowCheckbox={false} showRowHover={true}>
+            {this.state.campaigns.map((campaign) => {
+              // TableRow has to be present here instead of being a separate component
+              // as a workaround for bug where 'showRowHover' is not being propagated
+              return (
+                <TableRow selectable={true} key={campaign._id}>
+                  <TableRowColumn>{campaign.name}</TableRowColumn>
+                  <TableRowColumn>{campaign.tags.join(',')}</TableRowColumn>
+                  <TableRowColumn>{map(campaign.ads, 'name').join(',')}</TableRowColumn>
+                  <TableRowColumn>{campaign.expiration}</TableRowColumn>
+                  <TableRowColumn>{campaign._id}</TableRowColumn>
+                  <TableRowColumn>
+                    <RemoveButton
+                      resource='marketing/campaigns'
+                      resourceId={campaign._id}
+                      onRemove={this.handleRemove}
+                    />
+                  </TableRowColumn>
                 </TableRow>
-              </TableHeader>
-              <TableBody displayRowCheckbox={false} showRowHover={true}>
-                {this.state.campaigns.map((campaign) => {
-                  // TableRow has to be present here instead of being a separate component
-                  // as a workaround for bug where 'showRowHover' is not being propagated
-                  return (
-                      <TableRow selectable={true} key={campaign._id}>
-                        <TableRowColumn>{campaign.name}</TableRowColumn>
-                        <TableRowColumn>{campaign.tags.join(',')}</TableRowColumn>
-                        <TableRowColumn>{map(campaign.ads, 'name').join(',')}</TableRowColumn>
-                        <TableRowColumn>{campaign.expiration}</TableRowColumn>
-                        <TableRowColumn>{campaign._id}</TableRowColumn>
-                          <TableRowColumn>
-                            <RemoveButton
-                              resource='marketing/campaigns'
-                              resourceId={campaign._id}
-                              onRemove={this.handleRemove}
-                            />
-                          </TableRowColumn>
-                      </TableRow>
-                  )
-                })}
-              </TableBody>
-            </Table>
-            <AddCampaign callback={this.updateHandler} ads={this.props.ads}/>
-          </Panel>
-        </div>
+              )
+            })}
+          </TableBody>
+        </Table>
+        <AddCampaign callback={this.updateHandler} ads={this.props.ads}/>
+      </Panel>
     );
   }
 }
