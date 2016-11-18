@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {browserHistory} from 'react-router';
 import {Panel} from 'react-bootstrap';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import { map } from 'lodash';
 
 import RemoveButton from '../../shared/RemoveButton';
 import AddCampaign from '../../container/marketing/AddCampaign';
@@ -64,8 +65,8 @@ export default class CampaignsTable extends Component {
                       <TableRow selectable={true} key={campaign._id}>
                         <TableRowColumn>{campaign.name}</TableRowColumn>
                         <TableRowColumn>{campaign.tags.join(',')}</TableRowColumn>
-                        <TableRowColumn>{campaign.ads.join(',')}</TableRowColumn>
-                        <TableRowColumn>{campaign.hasOwnProperty('expiration') ? campaign.expiration : ''}</TableRowColumn>
+                        <TableRowColumn>{map(campaign.ads, 'name').join(',')}</TableRowColumn>
+                        <TableRowColumn>{campaign.expiration}</TableRowColumn>
                         <TableRowColumn>{campaign._id}</TableRowColumn>
                           <TableRowColumn>
                             <RemoveButton
