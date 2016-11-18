@@ -10,7 +10,6 @@ export default class AddStoreModal extends Component {
 
   constructor(props) {
     super(props);
-    console.log(props);
 
     this.storeData = {
       ownerId: props.ownerId,

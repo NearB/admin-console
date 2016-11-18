@@ -35,7 +35,6 @@ export default class Ads extends Component {
           json: true
         }
     ).then((res) => {
-      console.log(res);
       this.setState({ads: res.data})
     }).catch((error) => {
       console.log(error);

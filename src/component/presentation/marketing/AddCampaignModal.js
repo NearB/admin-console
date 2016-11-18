@@ -12,7 +12,6 @@ export default class AddCampaignModal extends Component {
 
   constructor(props) {
     super(props);
-    console.log(props);
 
     this.campaignData = {
       name: '',

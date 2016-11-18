@@ -35,7 +35,6 @@ export default class Products extends Component {
           json: true
         }
     ).then((res) => {
-      console.log(res);
       this.setState({products: res.data})
     }).catch((error) => {
       console.log(error);

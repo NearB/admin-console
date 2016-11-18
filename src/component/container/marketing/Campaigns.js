@@ -37,7 +37,6 @@ export default class Campaigns extends Component {
           json: true
         }
     ).then((res) => {
-      console.log(res);
       this.setState({campaigns: res.data})
     }).catch((error) => {
       console.log(error);
@@ -55,7 +54,6 @@ export default class Campaigns extends Component {
         json: true
       }
     ).then((res) => {
-      console.log(res);
       this.setState({ads: res.data})
     }).catch((error) => {
       console.log(error);

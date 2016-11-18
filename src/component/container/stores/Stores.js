@@ -35,7 +35,6 @@ export default class Stores extends Component {
           json: true
         }
     ).then((res) => {
-      console.log(res);
       this.setState({stores: res.data})
     }).catch((error) => {
       console.log(error);

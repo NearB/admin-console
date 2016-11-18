@@ -9,7 +9,6 @@ import '../../css/sb-admin.css';
 export default class Dashboard extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
 
     this.state = {
       user: props.params.userId
@@ -18,10 +17,10 @@ export default class Dashboard extends Component {
 
   render() {
     return (
-        <div id="wrapper">
-            <DashboardNavBar user={this.state.user}/>
-            <DashboardView user={this.state.user}/>
-        </div>
+      <div id="wrapper">
+        <DashboardNavBar user={this.state.user}/>
+        <DashboardView user={this.state.user}/>
+      </div>
     );
   }
 }
