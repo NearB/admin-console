@@ -4,15 +4,13 @@ import DashboardNavBar from '../DashboardNavBar';
 import ContentManager from '../ContentManager';
 
 import {
-    Row, Col
+    Grid, Row, Col
 } from 'react-bootstrap';
 
 const styles = {
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    paddingLeft: '15px',
-    paddingRight: '15px',
   },
   gridList: {
     width: 500,
@@ -22,64 +20,110 @@ const styles = {
   },
 };
 
-import {Card, CardMedia, CardTitle} from 'material-ui/Card';
+// TODO: refactor this big ass file
+function ModuleChooser(props) {
+  return (
+    <Grid>
+      <Row>
+        <StoreCard
+          title='Content'
+          subtitle='Products & Stock'
+          imgUrl={require("../../../img/pub_menu.png")}
+        >
+          <ContentManager storeId={props.storeId}/>
+        </StoreCard>
+        <StoreCard
+          title='Marketing'
+          subtitle='Marketing Campaigns'
+          imgUrl={require("../../../img/pub_menu.png")}
+        />
+        <StoreCard
+          title='Brand'
+          subtitle='Brand Customization'
+          imgUrl={require("../../../img/pub_menu.png")}
+        />
+        <StoreCard
+          title='Analytics'
+          subtitle='Store Insights'
+          imgUrl={require("../../../img/pub_menu.png")}
+        />
+      </Row>
+    </Grid>
+  );
+}
 
-const STORE_MODULES = {content: 'Content', marketing: 'Marketing', brand: 'Brand', analytics: 'Analytics'};
+import {Card, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
-class ModuleChooser extends Component {
+class StoreCard extends Component {
   constructor(props) {
     super(props);
 
-    this.choose = props.onChoice;
+    this.state = {
+      isExpanded: false,
+      xs: 12,
+      sm: 6,
+      lg: 4,
+    };
 
-    this.handleClick = this.handleClick.bind(this);
+    this.handleExpandChange = this.handleExpandChange.bind(this);
+    this.handleCardMediaClick = this.handleCardMediaClick.bind(this);
   }
 
-  handleClick(module) {
-    return () => {
-      this.choose(module);
-    }
+  handleExpandChange(isExpanded) {
+    this.setState({
+      isExpanded: isExpanded,
+      xs: isExpanded ? 12 : 12,
+      sm: isExpanded ? 12 : 6,
+      lg: isExpanded ? 9 : 4,
+    })
+  }
+
+  handleCardMediaClick() {
+    this.handleExpandChange(!this.state.isExpanded);
   }
 
   render() {
-    return (<div>
-          <Row>
-            <Col lg={3}>
-              <Card onClick={this.handleClick(STORE_MODULES.content)}>
-                <CardMedia overlay={<CardTitle title={STORE_MODULES.content} subtitle="Marketing Campaigns"/>}>
-                  <img src={require("../../../img/pub_menu.png")}/>
-                </CardMedia>
-              </Card>
-            </Col>
-            <Col lg={3} onClick={this.handleClick(STORE_MODULES.marketing)}>
-              <Card>
-                <CardMedia overlay={<CardTitle title={STORE_MODULES.marketing} subtitle="Marketing Campaigns"/>}>
-                  <img src={require("../../../img/pub_menu.png")}/>
-                </CardMedia>
-              </Card>
-            </Col>
-          </Row>
-          <Row>
-            <Col lg={3} onClick={this.handleClick(STORE_MODULES.brand)}>
-              <Card>
-                <CardMedia overlay={<CardTitle title={STORE_MODULES.brand} subtitle="Brand Customization"/>}>
-                  <img src={require("../../../img/pub_menu.png")}/>
-                </CardMedia>
-              </Card>
-            </Col>
-            <Col lg={3} onClick={this.handleClick(STORE_MODULES.analytics)}>
-              <Card>
-                <CardMedia overlay={<CardTitle title={STORE_MODULES.analytics} subtitle="Store Insights"/>}>
-                  <img src={require("../../../img/pub_menu.png")}/>
-                </CardMedia>
-              </Card>
-            </Col>
-          </Row>
-        </div>
+    const animatedStyles = {
+      // transition: 'width 0.2s ease-in-out',
+    };
+    return (
+      <Col xs={this.state.xs} sm={this.state.sm} lg={this.state.lg} style={animatedStyles}>
+        <Card
+          expanded={this.state.isExpanded}
+          onExpandChange={this.handleExpandChange}
+        >
+          {this.state.isExpanded ?
+            <CardHeader
+              title={this.props.title}
+              subtitle={this.props.subtitle}
+              avatar={this.props.imgUrl}
+              actAsExpander
+            />
+            :
+            // there's a bug with the actAsExpander property on CardMedia
+            <CardMedia
+              onClick={this.handleCardMediaClick}
+              overlay={<CardTitle title={this.props.title} subtitle={this.props.subtitle}/>}
+              style={{cursor: 'pointer'}}
+            >
+              <img src={this.props.imgUrl}/>
+            </CardMedia>
+          }
+          <CardText expandable>
+            {this.props.children}
+          </CardText>
+        </Card>
+      </Col>
     );
   }
 }
 
+StoreCard.propTypes = {
+  title: React.PropTypes.string,
+  subtitle: React.PropTypes.string,
+  imgUrl: React.PropTypes.string,
+  children: React.PropTypes.node,
+};
 
 export default class Store extends Component {
   constructor(props) {
@@ -87,38 +131,17 @@ export default class Store extends Component {
 
     this.state = {
       id: props.params.storeId,
-      showModule: ''
     };
-
-    this.handleChoice = this.handleChoice.bind(this);
-  }
-
-  handleChoice(module) {
-    this.setState({showModule: module});
   }
 
   render() {
     return (
-        <div id="wrapper">
-          <DashboardNavBar user={this.state.user}/>
-          <div id="page-wrapper" style={styles.root}>
-            {(() => {
-              switch (this.state.showModule) {
-                case STORE_MODULES.content:
-                  return <ContentManager storeId={this.state.id}/>;
-                case STORE_MODULES.marketing:
-                  return <ContentManager storeId={this.state.id}/>;
-                case STORE_MODULES.brand:
-                  return <ContentManager storeId={this.state.id}/>;
-                case STORE_MODULES.analytics:
-                  return <ContentManager storeId={this.state.id}/>;
-                default:
-                  return <ModuleChooser onChoice={this.handleChoice}/>;
-              }
-            })()}
-          </div>
+      <div id="wrapper">
+        <DashboardNavBar user={this.state.user}/>
+        <div id="page-wrapper" style={styles.root}>
+          <ModuleChooser  storeId={this.state.id}/>;
         </div>
-
+      </div>
     );
   }
 }

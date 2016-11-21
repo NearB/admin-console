@@ -9,6 +9,8 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
+import Fa from 'react-fontawesome';
 
 import api from 'services/api';
 
@@ -33,42 +35,98 @@ export default class ContentManager extends Component {
     super(props);
     this.state = {
       storeId: props.storeId,
-      content: []
+      content: [],
+      products: [],
+      selectedProductId: '',
+      showModal: false
     };
 
-    this._fetchContent = this._fetchContent.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
     this._fetchContent();
+    this._fetchProducts();
   }
 
   _fetchContent() {
-    return api(`stores/${this.state.storeId}/stock`)
+    return api(`stores/${this.state.storeId}/products`)
       .then((res) => {
         console.log(res);
-        this.setState({content: res.result})
+        this.setState({content: res.data})
       })
       .catch((error) => {
         console.log(error);
       });
   }
 
+  _fetchProducts() {
+    return api('products')
+      .then((res) => {
+        this.setState({products: res.data})
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  handleClick(productId) {
+    return () => {
+      const stockData = {
+        productId,
+        price: 70,
+        stock: 100
+      };
+
+      return api.put(`stores/${this.state.storeId}/products`, stockData)
+        .then((res) => {
+          console.log(res);
+          return this._fetchContent();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      // this.setState({
+      //   selectedProductId: productId,
+      //   showModal: true
+      // });
+    }
+  }
+
   render() {
     return (
+      <div>
         <List>
           <Subheader>Store Content</Subheader>
           {this.state.content.map((item) => {
             return (
-                <ListItem
-                    leftAvatar={<Avatar src={item.img}/>}
-                    rightIconButton={rightIconMenu}
-                    primaryText={item.name}
-                    secondaryText={`$${item.price} - ${item.description}`}
-                    secondaryTextLines={2}
-                />);
+              <ListItem
+                leftAvatar={<Avatar src={item.img}/>}
+                rightIconButton={rightIconMenu}
+                primaryText={item.name}
+                secondaryText={`$${item.price} - ${item.description}`}
+                secondaryTextLines={2}
+              />);
           })}
         </List>
+        <List>
+          <Subheader><b>Products</b><i> - WIP: clicking the plus button will add the product to the store with default price and stock</i></Subheader>
+          {this.state.products.map((product) => {
+            return (
+              <ListItem
+                leftAvatar={<Avatar src={product.img}/>}
+                rightIconButton={
+                  <FlatButton
+                    onClick={this.handleClick(product._id)}
+                    icon={<Fa name='plus'/>}
+                  />
+                }
+                primaryText={product.name}
+                secondaryText={product.description}
+              />);
+          })}
+        </List>
+      </div>
     );
   }
 }
