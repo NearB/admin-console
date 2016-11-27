@@ -99,12 +99,13 @@ export default class ContentManager extends Component {
         <List>
           <Subheader>Store Content</Subheader>
           {this.state.content.map((item) => {
+            if (!item.product) return;
             return (
               <ListItem
-                leftAvatar={<Avatar src={item.img}/>}
+                leftAvatar={<Avatar src={item.product.img}/>}
                 rightIconButton={rightIconMenu}
-                primaryText={item.name}
-                secondaryText={`$${item.price} - ${item.description}`}
+                primaryText={item.product.name}
+                secondaryText={`$${item.price} - ${item.product.description}`}
                 secondaryTextLines={2}
               />);
           })}
