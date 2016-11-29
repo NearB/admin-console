@@ -94,12 +94,16 @@ export default class ContentManager extends Component {
   }
 
   render() {
+    const ellipsis = {
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis'
+    };
     return (
       <div>
         <List>
-          <Subheader>Store Content</Subheader>
           {this.state.content.map((item) => {
-            if (!item.product) return;
+            if (!item.product) return ; //eslint-disable-line array-callback-return
             return (
               <ListItem
                 leftAvatar={<Avatar src={item.product.img}/>}
@@ -111,7 +115,7 @@ export default class ContentManager extends Component {
           })}
         </List>
         <List>
-          <Subheader><b>Products</b><i> - WIP: clicking the plus button will add the product to the store with default price and stock</i></Subheader>
+          <Subheader style={ellipsis}><b>Products</b><i> - WIP: clicking the plus button will add the product to the store with default price and stock</i></Subheader>
           {this.state.products.map((product) => {
             return (
               <ListItem
