@@ -10,8 +10,8 @@ export default class CustomCard extends Component {
     this.state = {
       isExpanded: false,
       xs: 12,
-      sm: 6,
-      lg: 4,
+      sm: 12,
+      lg: 12,
     };
 
     this.handleExpandChange = this.handleExpandChange.bind(this);
@@ -22,8 +22,8 @@ export default class CustomCard extends Component {
     this.setState({
       isExpanded: isExpanded,
       xs: isExpanded ? 12 : 12,
-      sm: isExpanded ? 12 : 6,
-      lg: isExpanded ? 9 : 4,
+      sm: isExpanded ? 12 : 12,
+      lg: isExpanded ? 12 : 12,
     })
   }
 
@@ -49,7 +49,7 @@ export default class CustomCard extends Component {
     }, animatedStyle);
 
     const cardMediaImgStyle = _.defaults({
-      maxWidth: '327px',
+      maxWidth: '600px',
       height: '327px',
     }, animatedStyle);
 
@@ -118,7 +118,9 @@ export default class CustomCard extends Component {
           <CardMedia
             onClick={this.handleCardMediaClick}
             style={cardMediaStyle}
-            overlay={<CardTitle title={this.props.title} subtitle={this.props.subtitle} style={{padding: 0}} titleStyle={cardTitleTitleStyle} subtitleStyle={cardTitleSubitleStyle} />}
+            overlay={<CardTitle title={this.props.title} subtitle={this.props.subtitle}
+                                style={{padding: 0}} titleStyle={cardTitleTitleStyle}
+                                subtitleStyle={cardTitleSubitleStyle} />}
             overlayContentStyle={cardMediaOverlayContentStyle}
           >
             <img src={this.props.imgUrl} style={cardMediaImgStyle} />

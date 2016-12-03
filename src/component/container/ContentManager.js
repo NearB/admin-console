@@ -111,6 +111,7 @@ export default class ContentManager extends Component {
                 primaryText={item.product.name}
                 secondaryText={`$${item.price} - ${item.product.description}`}
                 secondaryTextLines={2}
+                key={item.product._id}
               />);
           })}
         </List>
