@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 
-import ProductsTable from '../../presentation/warehouse/ProductsTable';
-
 import {List, ListItem} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import {grey400} from 'material-ui/styles/colors';
@@ -109,7 +107,7 @@ export default class ProductContainerList extends Component {
         <Panel header={this.name}>
           <List>
             {this.state.containers.map((container) => {
-              if (container.products.length == 0) return ; //eslint-disable-line array-callback-return
+              if (container.products.length === 0) return ; //eslint-disable-line array-callback-return
               return (
                   <ListItem
                       leftAvatar={<Avatar>${this._calculateTotal(container.products)}</Avatar>}

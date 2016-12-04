@@ -15,16 +15,16 @@ export default class Carts extends Component {
 
   }
 
-  _done(cart) {
+  handleDone(cart) {
     return api(`carts/${cart._id}`, 'PUT', {status: 'CLOSED'});
   }
 
-  _cancel(cart) {
+  handleCancel(cart) {
     // TODO review if something else is done here
     return api(`carts/${cart._id}`, 'PUT', {status: 'CLOSED'});
   }
 
-  _showModal(cart){
+  handleItemSelected(cart){
     console.log("SHOULD SHOW MODAL, BUT I HAVE TO GO =(");
     console.log(cart);
   }
@@ -34,8 +34,8 @@ export default class Carts extends Component {
         <ProductContainerList name="Carts"
                               dataUrl={`stores/${this.state.storeId}/carts?status=OPEN,CHECKOUT`}
                               doneLabel="Done" cancelLabel="Close"
-                              onDone={this._done} onCancel={this._cancel}
-                              onItemSelected={this._showModal}/>
+                              onDone={this.handleDone} onCancel={this.handleCancel}
+                              onItemSelected={this.handleItemSelected}/>
     );
   }
 }

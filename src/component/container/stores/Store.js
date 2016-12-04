@@ -7,10 +7,8 @@ import Carts from '../warehouse/Carts';
 import CustomCard from '../../shared/CustomCard';
 
 import {
-    Grid, Row, Col, Well
+    Grid, Row, Col
 } from 'react-bootstrap';
-
-import {List, ListItem} from 'material-ui/List';
 
 const styles = {
   root: {

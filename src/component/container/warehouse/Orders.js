@@ -14,16 +14,16 @@ export default class Orders extends Component {
 
   }
 
-  _done(order) {
+  handleDone(order) {
     return api(`orders/${order._id}`, 'PUT', {status: 'DONE'});
   }
 
-  _cancel(order) {
+  handleCancel(order) {
     // TODO review if something else is done here
     return api(`orders/${order._id}`, 'PUT', {status: 'CANCELED'});
   }
 
-  _showModal(order){
+  handleItemSelected(order){
     console.log("SHOULD SHOW MODAL, BUT I HAVE TO GO =(");
     console.log(order);
   }
@@ -33,8 +33,8 @@ export default class Orders extends Component {
         <ProductContainerList name="Orders"
                               dataUrl={`stores/${this.state.storeId}/orders?status=PENDING`}
                               doneLabel="Done" cancelLabel="Cancel"
-                              onDone={this._done} onCancel={this._cancel}
-                              onItemSelected={this._showModal}/>
+                              onDone={this.handleDone} onCancel={this.handleCancel}
+                              onItemSelected={this.handleItemSelected}/>
     );
   }
 }
