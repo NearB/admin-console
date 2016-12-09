@@ -53,7 +53,7 @@ export default class Campaigns extends Component {
         userId={this.state.userId}
         campaigns={this.state.campaigns}
         ads={this.state.ads}
-        handleUpdate={this.handleCampaignsUpdate}
+        onUpdate={this.handleCampaignsUpdate}
       />
     );
   }

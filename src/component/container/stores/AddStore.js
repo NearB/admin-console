@@ -14,7 +14,7 @@ export default class AddStore extends Component {
       showModal: false,
     };
 
-    this.callback = props.callback;
+    this.callback = props.onUpdate;
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClose = this.handleClose.bind(this);

@@ -18,7 +18,7 @@ export default class StoresTable extends Component {
       height: ''
     };
 
-    this.updateHandler = props.onUpdate;
+    this.handleUpdate = props.onUpdate;
     this.handleRowSelection = this.handleRowSelection.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
   }
@@ -36,7 +36,7 @@ export default class StoresTable extends Component {
   }
 
   handleRemove(res) {
-    return this.updateHandler();
+    return this.handleUpdate();
   }
 
   render() {
@@ -96,7 +96,7 @@ export default class StoresTable extends Component {
             })}
           </TableBody>
         </Table>
-        <AddStore userId={this.state.userId} callback={this.updateHandler}/>
+        <AddStore userId={this.state.userId} onUpdate={this.handleUpdate}/>
       </Panel>
     );
   }

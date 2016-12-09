@@ -16,7 +16,7 @@ export default class AdsTable extends Component {
       ads: props.ads
     };
 
-    this.updateHandler = props.onUpdate;
+    this.handleUpdate = props.onUpdate;
     this.handleRemove = this.handleRemove.bind(this);
   }
 
@@ -28,7 +28,7 @@ export default class AdsTable extends Component {
   }
 
   handleRemove(res) {
-    return this.updateHandler();
+    return this.handleUpdate();
   }
 
   render() {
@@ -76,7 +76,7 @@ export default class AdsTable extends Component {
                 })}
               </TableBody>
             </Table>
-            <AddAd userId={this.state.userId} callback={this.updateHandler}/>
+            <AddAd userId={this.state.userId} onUpdate={this.handleUpdate}/>
           </Panel>
         </div>
     );

@@ -24,7 +24,7 @@ export default class CampaignsTable extends Component {
       throw new Error(`Missing ads: ${this.campaign} or ${this.ads}`);
     }
 
-    this.updateHandler = props.handleUpdate;
+    this.handleUpdate = props.onUpdate;
     this.handleRemove = this.handleRemove.bind(this);
   }
 
@@ -37,7 +37,7 @@ export default class CampaignsTable extends Component {
   }
 
   handleRemove(res) {
-    return this.updateHandler();
+    return this.handleUpdate();
   }
 
   render() {
@@ -81,7 +81,7 @@ export default class CampaignsTable extends Component {
                   <TableRowColumn>{campaign._id}</TableRowColumn>
                   <TableRowColumn>
                     <EditCampaign userId={this.state.userId} ads={this.state.ads} data={campaign}
-                                  onUpdate={this.updateHandler}/>
+                                  onUpdate={this.handleUpdate}/>
                     <RemoveButton
                         resource='marketing/campaigns'
                         resourceId={campaign._id}
@@ -93,7 +93,7 @@ export default class CampaignsTable extends Component {
             })}
           </TableBody>
         </Table>
-        <AddCampaign callback={this.updateHandler} ads={this.state.ads}/>
+        <AddCampaign onUpdate={this.handleUpdate} ads={this.state.ads}/>
       </Panel>
     );
   }

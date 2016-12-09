@@ -17,7 +17,7 @@ export default class ProductsTable extends Component {
       products: props.products
     };
 
-    this.updateHandler = props.onUpdate;
+    this.handleUpdate = props.onUpdate;
     this.handleRemove = this.handleRemove.bind(this);
   }
 
@@ -29,7 +29,7 @@ export default class ProductsTable extends Component {
   }
 
   handleRemove(res) {
-    return this.updateHandler();
+    return this.handleUpdate();
   }
 
   render() {
@@ -66,7 +66,7 @@ export default class ProductsTable extends Component {
                   <TableRowColumn>{product._id}</TableRowColumn>
                   <TableRowColumn>
                     <EditProduct  userId={this.state.userId} data={product}
-                                  onUpdate={this.updateHandler}/>
+                                  onUpdate={this.handleUpdate}/>
                     <RemoveButton
                       resource='products'
                       resourceId={product._id}
@@ -78,7 +78,7 @@ export default class ProductsTable extends Component {
             })}
           </TableBody>
         </Table>
-        <AddProduct callback={this.updateHandler}/>
+        <AddProduct onUpdate={this.handleUpdate}/>
       </Panel>
     );
   }
