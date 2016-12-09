@@ -15,7 +15,9 @@ export default class CustomCard extends Component {
     };
 
     this.handleExpandChange = this.handleExpandChange.bind(this);
-    this.handleCardMediaClick = this.handleCardMediaClick.bind(this);
+
+    // Reuse card with multiple setups (child node & redirect)
+    this.handleCardMediaClick = props.onClick == null ? this.handleCardClick.bind(this) : props.onClick;
   }
 
   handleExpandChange(isExpanded) {
@@ -27,7 +29,7 @@ export default class CustomCard extends Component {
     })
   }
 
-  handleCardMediaClick() {
+  handleCardClick() {
     this.handleExpandChange(!this.state.isExpanded);
   }
 
@@ -113,7 +115,6 @@ export default class CustomCard extends Component {
           onExpandChange={this.handleExpandChange}
           style={{position: 'relative', minHeight: '327px'}}
         >
-
           // there's a bug with the actAsExpander property on CardMedia
           <CardMedia
             onClick={this.handleCardMediaClick}
@@ -139,4 +140,5 @@ CustomCard.propTypes = {
   subtitle: React.PropTypes.string,
   imgUrl: React.PropTypes.string,
   children: React.PropTypes.node,
+  onClick: React.PropTypes.func
 };

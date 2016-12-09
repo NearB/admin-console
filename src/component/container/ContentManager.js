@@ -11,6 +11,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 import Fa from 'react-fontawesome';
+import {Panel} from 'react-bootstrap';
 
 import api from 'services/api';
 
@@ -104,39 +105,39 @@ export default class ContentManager extends Component {
       textOverflow: 'ellipsis'
     };
     return (
-      <div>
-        <List>
-          {this.state.content.map((item) => {
-            if (!item.product) return ; //eslint-disable-line array-callback-return
-            return (
-              <ListItem
-                leftAvatar={<Avatar src={item.product.img}/>}
-                rightIconButton={rightIconMenu}
-                primaryText={item.product.name}
-                secondaryText={`$${item.price} - ${item.product.description}`}
-                secondaryTextLines={2}
-                key={item.product._id}
-              />);
-          })}
-        </List>
-        <List>
-          <Subheader style={ellipsis}><b>Products</b><i> - WIP: clicking the plus button will add the product to the store with default price and stock</i></Subheader>
-          {this.state.products.map((product) => {
-            return (
-              <ListItem key={product._id}
-                leftAvatar={<Avatar src={product.img}/>}
-                rightIconButton={
-                  <FlatButton
-                    onClick={this.handleClick(product._id)}
-                    icon={<Fa name='plus'/>}
-                  />
-                }
-                primaryText={product.name}
-                secondaryText={product.description}
-              />);
-          })}
-        </List>
-      </div>
+        <Panel header="Products In Stock">
+          <List>
+            {this.state.content.map((item) => {
+              if (!item.product) return ; //eslint-disable-line array-callback-return
+              return (
+                <ListItem
+                  leftAvatar={<Avatar src={item.product.img}/>}
+                  rightIconButton={rightIconMenu}
+                  primaryText={item.product.name}
+                  secondaryText={`$${item.price} - ${item.product.description}`}
+                  secondaryTextLines={2}
+                  key={item.product._id}
+                />);
+            })}
+          </List>
+          <List>
+            <Subheader style={ellipsis}><b>Products</b><i> - WIP: clicking the plus button will add the product to the store with default price and stock</i></Subheader>
+            {this.state.products.map((product) => {
+              return (
+                <ListItem key={product._id}
+                  leftAvatar={<Avatar src={product.img}/>}
+                  rightIconButton={
+                    <FlatButton
+                      onClick={this.handleClick(product._id)}
+                      icon={<Fa name='plus'/>}
+                    />
+                  }
+                  primaryText={product.name}
+                  secondaryText={product.description}
+                />);
+            })}
+          </List>
+        </Panel>
     );
   }
 }
