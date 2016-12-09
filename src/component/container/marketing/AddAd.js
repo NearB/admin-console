@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import AdModal from '../../presentation/marketing/AddAdModal';
+import AdModal from '../../presentation/marketing/AdModal';
 import FlatButton from 'material-ui/FlatButton';
 
 import api from 'services/api';
@@ -10,7 +10,7 @@ export default class AddAd extends Component {
   constructor(props) {
     super(props);
 
-    this.owner = props.owner;
+    this.userId = props.userId != null ? props.userId  : props.params.userId;
     this.state = {
       showModal: false,
     };
@@ -48,7 +48,7 @@ export default class AddAd extends Component {
         <div style={{textAlign: "right"}}>
           <FlatButton label="Create Ad" primary={true} onTouchTap={this.handleOpen}/>
           {this.state.showModal ?
-              <AdModal owner={this.owner} onClose={this.handleClose} onSubmit={this.handleSubmit}/>
+              <AdModal userId={this.userId} onClose={this.handleClose} onSubmit={this.handleSubmit}/>
               : null}
         </div>
 

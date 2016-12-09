@@ -65,7 +65,7 @@ export default class CartModal extends Component {
   render() {
     const modalActions = [
       <FlatButton label="Cancel" primary={true} onTouchTap={this.handleClose}/>,
-      <FlatButton label="Submit" primary={true}
+      <FlatButton label="Done" primary={true}
                   disabled={this.state.disableSubmit}
                   onTouchTap={() => {
                     this.handleSubmit(this.productData)

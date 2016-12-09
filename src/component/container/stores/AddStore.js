@@ -9,7 +9,7 @@ export default class AddStore extends Component {
   constructor(props) {
     super(props);
 
-    this.owner = props.owner;
+    this.userId = props.userId;
     this.state = {
       showModal: false,
     };
@@ -47,7 +47,7 @@ export default class AddStore extends Component {
         <div style={{textAlign: "right"}}>
           <FlatButton label="Create Store" primary={true} onTouchTap={this.handleOpen}/>
           <StoreModal
-              ownerId={this.owner}
+              userId={this.userId}
               onClose={this.handleClose}
               onSubmit={this.handleSubmit}
               open={this.state.showModal}

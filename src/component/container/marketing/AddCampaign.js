@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import CampaignModal from '../../presentation/marketing/AddCampaignModal';
+import CampaignModal from '../../presentation/marketing/CampaignModal';
 import FlatButton from 'material-ui/FlatButton';
 
 import api from 'services/api';

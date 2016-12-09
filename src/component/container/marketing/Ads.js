@@ -9,10 +9,11 @@ export default class Ads extends Component {
     super(props);
 
     this.state = {
-      owner: props.owner,
+      userId: props.userId != null ? props.userId  : props.params.userId,
       ads: []
     };
 
+    this.globalUpdate = props.globalUpdate;
     this._fetchAds = this._fetchAds.bind(this);
     this.handleAdsUpdate = this.handleAdsUpdate.bind(this);
   }
@@ -28,7 +29,8 @@ export default class Ads extends Component {
   _fetchAds() {
     return api('marketing/ads')
       .then((res) => {
-        this.setState({ads: res.data})
+        this.setState({ads: res.data});
+        this.globalUpdate();
       })
       .catch((error) => {
         console.log(error);
@@ -37,8 +39,10 @@ export default class Ads extends Component {
 
   render() {
     return (
-        <AdsTable owner={this.state.owner} ads={this.state.ads}
-                     onUpdate={this.handleAdsUpdate}/>
+        <AdsTable userId={this.state.userId} ads={this.state.ads}
+          onUpdate={this.handleAdsUpdate}/>
     );
   }
 }
+
+

@@ -9,7 +9,7 @@ export default class Campaigns extends Component {
     super(props);
 
     this.state = {
-      owner: props.owner,
+      userId: props.userId != null ? props.userId  : props.params.userId,
       campaigns: [],
       ads: []
     };
@@ -19,8 +19,8 @@ export default class Campaigns extends Component {
   }
 
   componentDidMount() {
-    this._fetchCampaigns();
     this._fetchAds();
+    this._fetchCampaigns();
   }
 
   handleCampaignsUpdate(){
@@ -50,10 +50,10 @@ export default class Campaigns extends Component {
   render() {
     return (
       <CampaignsTable
-        owner={this.state.owner}
+        userId={this.state.userId}
         campaigns={this.state.campaigns}
         ads={this.state.ads}
-        onUpdate={this.handleCampaignsUpdate}
+        handleUpdate={this.handleCampaignsUpdate}
       />
     );
   }

@@ -6,11 +6,10 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 
 
-export default class AddAdModal extends Component {
+export default class AdModal extends Component {
 
   constructor(props) {
     super(props);
-    console.log(props);
 
     this.adData = {
       name: '',
@@ -65,7 +64,7 @@ export default class AddAdModal extends Component {
   render() {
     const modalActions = [
       <FlatButton label="Cancel" primary={true} onTouchTap={this.handleClose}/>,
-      <FlatButton label="Submit" primary={true}
+      <FlatButton label="Done" primary={true}
                   disabled={this.state.disableSubmit}
                   onTouchTap={() => {
                     this.handleSubmit(this.adData)

@@ -1,23 +1,22 @@
 import React, {Component} from 'react';
-import {browserHistory} from 'react-router';
 import {Panel} from 'react-bootstrap';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import Avatar from 'material-ui/Avatar';
 
 import RemoveButton from '../../shared/RemoveButton';
 import AddAd from '../../container/marketing/AddAd';
-
+import Fa from 'react-fontawesome';
 
 export default class AdsTable extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      owner: props.owner,
+      userId: props.userId != null ? props.userId  : props.params.userId,
       ads: props.ads
     };
 
     this.updateHandler = props.onUpdate;
-    this.handleRowSelection = this.handleRowSelection.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
   }
 
@@ -28,13 +27,6 @@ export default class AdsTable extends Component {
     })
   }
 
-  handleRowSelection(selectedAds){
-    const adId = this.state.ads[selectedAds[0]]._id;
-    console.log(adId);
-
-    browserHistory.push(`/users/${this.state.owner}/ads/${adId}`);
-  }
-
   handleRemove(res) {
     return this.updateHandler();
   }
@@ -43,14 +35,21 @@ export default class AdsTable extends Component {
     return (
         <div>
           <Panel style={{marginTop: 20}}>
-            <Table onRowSelection={this.handleRowSelection}
-                   height={this.state.height}
+            <Table height={this.state.height}
                    fixedHeader={true}>
               <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableRow style={{textAlign: "center"}}>
+                  <TableHeaderColumn></TableHeaderColumn>
                   <TableHeaderColumn>Ad</TableHeaderColumn>
-                  <TableHeaderColumn>Tags</TableHeaderColumn>
-                  <TableHeaderColumn>Id</TableHeaderColumn>
+                  <TableHeaderColumn>
+                    <Fa name="tags" fixedWidth={true}/> Tags
+                  </TableHeaderColumn>
+                  <TableHeaderColumn>
+                    <Fa name="bars" fixedWidth={true}/> Description
+                  </TableHeaderColumn>
+                  <TableHeaderColumn>
+                    <Fa name="key" fixedWidth={true}/> Id
+                  </TableHeaderColumn>
                   <TableHeaderColumn></TableHeaderColumn>
                 </TableRow>
               </TableHeader>
@@ -59,9 +58,11 @@ export default class AdsTable extends Component {
                   // TableRow has to be present here instead of being a separate component
                   // as a workaround for bug where 'showRowHover' is not being propagated
                   return (
-                    <TableRow selectable={true} key={ad._id}>
+                    <TableRow selectable={false} key={ad._id}>
+                      <TableRowColumn  style={{textAlign: "center"}}><Avatar src={ad.img}/></TableRowColumn>
                       <TableRowColumn>{ad.name}</TableRowColumn>
                       <TableRowColumn>{ad.tags.join(',')}</TableRowColumn>
+                      <TableRowColumn>{ad.description}</TableRowColumn>
                       <TableRowColumn>{ad._id}</TableRowColumn>
                       <TableRowColumn>
                         <RemoveButton
@@ -75,7 +76,7 @@ export default class AdsTable extends Component {
                 })}
               </TableBody>
             </Table>
-            <AddAd callback={this.updateHandler}/>
+            <AddAd userId={this.state.userId} callback={this.updateHandler}/>
           </Panel>
         </div>
     );

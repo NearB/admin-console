@@ -7,7 +7,6 @@ import {
 import '../../css/Home.css';
 import '../../css/landing-page.css';
 import '../../css/sb-admin.css';
-import '../../font-awesome/css/font-awesome.min.css';
 
 import Fa from 'react-fontawesome';
 
@@ -16,8 +15,9 @@ export default class DashboardNavBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: props.user
-    }
+      userId: props.userId != null ? props.userId  : props.params.userId,
+      storeId: props.storeId != null ? props.storeId  : props.params != null ? props.params.storeId  : null
+    };
   }
 
   render() {
@@ -35,14 +35,22 @@ export default class DashboardNavBar extends Component {
                 <MenuItem eventKey={1} href="#">Alerts</MenuItem>
               </NavDropdown>
               <NavDropdown title={<Fa name="user" fixedWidth={true}/>} id="user-dropdown">
-                <MenuItem eventKey={1} href="#">{this.state.user}</MenuItem>
+                <MenuItem eventKey={1} href="#">{this.state.userId}</MenuItem>
               </NavDropdown>
             </Nav>
               <Nav bsClass="nav navbar-nav side-nav">
-                <NavItem eventKey={1} href="#"><Fa name="dashboard" fixedWidth={true}/>Dashboard</NavItem>
-                <NavItem eventKey={2} href="#"><Fa name="bar-chart" fixedWidth={true}/>Charts</NavItem>
-                <NavItem eventKey={3} href="#"><Fa name="table" fixedWidth={true}/>Tables</NavItem>
-                <NavItem eventKey={4} href="#"><Fa name="edit" fixedWidth={true}/>Forms</NavItem>
+                <NavItem eventKey={1} href={`/users/${this.state.userId}/`}>
+                  <Fa name="home" fixedWidth={true}/> Dashboard
+                </NavItem>
+                <NavItem eventKey={2} href={`/users/${this.state.userId}/stores`}>
+                  <Fa name="map-marker" fixedWidth={true}/> Stores
+                </NavItem>
+                <NavItem eventKey={3} href={`/users/${this.state.userId}/products`}>
+                  <Fa name="truck" fixedWidth={true}/> Warehouse
+                </NavItem>
+                <NavItem eventKey={4} href={`/users/${this.state.userId}/marketing`}>
+                  <Fa name="users" fixedWidth={true}/> Marketing
+                </NavItem>
               </Nav>
           </Navbar.Collapse>
         </Navbar>

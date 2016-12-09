@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import DashboardNavBar from '../DashboardNavBar';
+import NavedContainer from '../NavedContainer';
 import ContentManager from '../ContentManager';
 import Orders from '../warehouse/Orders';
 import Carts from '../warehouse/Carts';
@@ -60,34 +60,41 @@ export default class Store extends Component {
     super(props);
 
     this.state = {
-      id: props.params.storeId,
+      userId: props.userId != null ? props.userId  : props.params.userId,
+      storeId: props.storeId != null ? props.storeId  : props.params.storeId
     };
+
+    this.renderContent = this.renderContent.bind(this);
   }
 
-  render() {
+  renderContent() {
     return (
-      <div id="wrapper">
-        <DashboardNavBar user={this.state.user}/>
         <div id="page-wrapper" style={styles.root}>
           <Grid>
             <Row>
               <Col lg={4} md={6} sm={6} xs={12}>
-                <ModuleChooser storeId={this.state.id}/>
+                <ModuleChooser storeId={this.state.storeId}/>
               </Col>
               <Col lg={8} md={6} sm={6} xs={12}>
                 <Row>
                   <Col lg={6}>
-                    <Orders storeId={this.state.id}></Orders>
+                    <Orders storeId={this.state.storeId}></Orders>
                   </Col>
                   <Col lg={6}>
-                    <Carts storeId={this.state.id}></Carts>
+                    <Carts storeId={this.state.storeId}></Carts>
                   </Col>
                 </Row>
               </Col>
             </Row>
           </Grid>
         </div>
-      </div>
+    );
+  }
+
+  render(){
+    return (
+        <NavedContainer userId={this.state.userId}
+                        content={this.renderContent}/>
     );
   }
 }

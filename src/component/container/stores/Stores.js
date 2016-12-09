@@ -9,7 +9,7 @@ export default class Stores extends Component {
     super(props);
 
     this.state = {
-      owner: props.owner,
+      userId: props.userId != null ? props.userId  : props.params.userId,
       stores: []
     };
 
@@ -37,8 +37,8 @@ export default class Stores extends Component {
 
   render() {
     return (
-        <StoresTable owner={this.state.owner} stores={this.state.stores}
-                     onUpdate={this.handleStoresUpdate}/>
+        <StoresTable userId={this.state.userId} stores={this.state.stores}
+                       onUpdate={this.handleStoresUpdate}/>
     );
   }
 }

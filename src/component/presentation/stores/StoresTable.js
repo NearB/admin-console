@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {browserHistory} from 'react-router';
 import {Panel} from 'react-bootstrap';
+import Fa from 'react-fontawesome';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
 import RemoveButton from '../../shared/RemoveButton';
@@ -12,7 +13,7 @@ export default class StoresTable extends Component {
     super(props);
 
     this.state = {
-      owner: props.owner,
+      userId: props.userId != null ? props.userId  : props.params.userId,
       stores: props.stores,
       height: ''
     };
@@ -31,9 +32,7 @@ export default class StoresTable extends Component {
 
   handleRowSelection(selectedStores) {
     const storeId = this.state.stores[selectedStores[0]]._id;
-    console.log(storeId);
-
-    browserHistory.push(`/users/${this.state.owner}/stores/${storeId}`);
+    browserHistory.push(`/users/${this.state.userId}/stores/${storeId}`);
   }
 
   handleRemove(res) {
@@ -51,12 +50,24 @@ export default class StoresTable extends Component {
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow style={{textAlign: "center"}}>
               <TableHeaderColumn>Store</TableHeaderColumn>
-              <TableHeaderColumn>Address</TableHeaderColumn>
-              <TableHeaderColumn>Locations</TableHeaderColumn>
-              <TableHeaderColumn>Stock</TableHeaderColumn>
-              <TableHeaderColumn>Ads</TableHeaderColumn>
-              <TableHeaderColumn>Campaigns</TableHeaderColumn>
-              <TableHeaderColumn>Id</TableHeaderColumn>
+              <TableHeaderColumn>
+                <Fa name="home" fixedWidth={true}/> Address
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <Fa name="map-marker" fixedWidth={true}/> Locations
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <Fa name="shopping-cart" fixedWidth={true}/> Stock
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <Fa name="cubes" fixedWidth={true}/> Ads
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <Fa name="users" fixedWidth={true}/> Campaigns
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <Fa name="key" fixedWidth={true}/> Id
+              </TableHeaderColumn>
               <TableHeaderColumn></TableHeaderColumn>
             </TableRow>
           </TableHeader>
@@ -85,7 +96,7 @@ export default class StoresTable extends Component {
             })}
           </TableBody>
         </Table>
-        <AddStore owner={this.state.owner} callback={this.updateHandler}/>
+        <AddStore userId={this.state.userId} callback={this.updateHandler}/>
       </Panel>
     );
   }

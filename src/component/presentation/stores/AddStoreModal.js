@@ -12,7 +12,7 @@ export default class AddStoreModal extends Component {
     super(props);
 
     this.storeData = {
-      ownerId: props.ownerId,
+      userId: props.userId != null ? props.userId  : props.params.userId,
       name: '',
       address: ''
     };

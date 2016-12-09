@@ -34,7 +34,7 @@ export default class ContentManager extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      storeId: props.storeId,
+      storeId: props.storeId != null ? props.storeId : props.params.storeId,
       content: [],
       products: [],
       selectedProductId: '',
@@ -63,7 +63,11 @@ export default class ContentManager extends Component {
   _fetchProducts() {
     return api('products')
       .then((res) => {
-        this.setState({products: res.data})
+        if (res.err == null){
+          this.setState({products: res.data})
+        } else {
+          console.log(res.err);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -119,7 +123,7 @@ export default class ContentManager extends Component {
           <Subheader style={ellipsis}><b>Products</b><i> - WIP: clicking the plus button will add the product to the store with default price and stock</i></Subheader>
           {this.state.products.map((product) => {
             return (
-              <ListItem
+              <ListItem key={product._id}
                 leftAvatar={<Avatar src={product.img}/>}
                 rightIconButton={
                   <FlatButton

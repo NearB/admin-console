@@ -9,7 +9,7 @@ export default class Products extends Component {
     super(props);
 
     this.state = {
-      owner: props.owner,
+      userId: props.userId != null ? props.userId  : props.params.userId,
       products: []
     };
 
@@ -37,8 +37,8 @@ export default class Products extends Component {
 
   render() {
     return (
-        <ProductsTable owner={this.state.owner} products={this.state.products}
-                     onUpdate={this.handleProductsUpdate}/>
+        <ProductsTable userId={this.state.userId} products={this.state.products}
+                       onUpdate={this.handleProductsUpdate}/>
     );
   }
 }
