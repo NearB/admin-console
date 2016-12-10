@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Card, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import { Col } from 'react-bootstrap';
 import _ from 'lodash';
 
 export default class CustomCard extends Component {
@@ -9,9 +8,6 @@ export default class CustomCard extends Component {
 
     this.state = {
       isExpanded: false,
-      xs: 12,
-      sm: 12,
-      lg: 12,
     };
 
     this.handleExpandChange = this.handleExpandChange.bind(this);
@@ -23,9 +19,6 @@ export default class CustomCard extends Component {
   handleExpandChange(isExpanded) {
     this.setState({
       isExpanded: isExpanded,
-      xs: isExpanded ? 12 : 12,
-      sm: isExpanded ? 12 : 12,
-      lg: isExpanded ? 12 : 12,
     })
   }
 
@@ -115,28 +108,26 @@ export default class CustomCard extends Component {
     }
 
     return (
-      <Col xs={this.state.xs} sm={this.state.sm} lg={this.state.lg} style={animatedStyle}>
-        <Card
-          expanded={this.state.isExpanded}
-          onExpandChange={this.handleExpandChange}
-          style={{position: 'relative', minHeight: imgSize}}
+      <Card
+        expanded={this.state.isExpanded}
+        onExpandChange={this.handleExpandChange}
+        style={{position: 'relative', minHeight: imgSize}}
+      >
+        // there's a bug with the actAsExpander property on CardMedia
+        <CardMedia
+          onClick={this.handleCardMediaClick}
+          style={cardMediaStyle}
+          overlay={<CardTitle title={this.props.title} subtitle={this.props.subtitle}
+                              style={{padding: 0}} titleStyle={cardTitleTitleStyle}
+                              subtitleStyle={cardTitleSubitleStyle} />}
+          overlayContentStyle={cardMediaOverlayContentStyle}
         >
-          // there's a bug with the actAsExpander property on CardMedia
-          <CardMedia
-            onClick={this.handleCardMediaClick}
-            style={cardMediaStyle}
-            overlay={<CardTitle title={this.props.title} subtitle={this.props.subtitle}
-                                style={{padding: 0}} titleStyle={cardTitleTitleStyle}
-                                subtitleStyle={cardTitleSubitleStyle} />}
-            overlayContentStyle={cardMediaOverlayContentStyle}
-          >
-            <img src={this.props.imgUrl} style={cardMediaImgStyle} />
-          </CardMedia>
-          <CardText expandable style={{paddingTop: '72px'}}>
-            {this.props.children}
-          </CardText>
-        </Card>
-      </Col>
+          <img src={this.props.imgUrl} style={cardMediaImgStyle} />
+        </CardMedia>
+        <CardText expandable style={{paddingTop: '72px'}}>
+          {this.props.children}
+        </CardText>
+      </Card>
     );
   }
 }

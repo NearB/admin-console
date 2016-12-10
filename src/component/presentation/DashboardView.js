@@ -26,7 +26,7 @@ function goTo(path) {
 
 function ModuleChooser(props) {
   return (
-    <div>
+    <Grid fluid>
       <Row>
         <Col lg={6} style={styles.padded}>
           <CustomCard
@@ -38,13 +38,13 @@ function ModuleChooser(props) {
           </CustomCard>
         </Col>
         <Col lg={6} style={styles.padded}>
-        <CustomCard
-            title='Warehouse'
-            subtitle='Manage your products in a single place'
-            imgUrl={require('../../img/warehouse.jpg')}
-        >
-          <ProductsSmall userId={props.userId}/>
-        </CustomCard>
+          <CustomCard
+              title='Warehouse'
+              subtitle='Manage your products in a single place'
+              imgUrl={require('../../img/warehouse.jpg')}
+          >
+            <ProductsSmall userId={props.userId}/>
+          </CustomCard>
         </Col>
       </Row>
       <Row>
@@ -67,7 +67,7 @@ function ModuleChooser(props) {
           </CustomCard>
         </Col>
       </Row>
-    </div>
+    </Grid>
   );
 }
 
@@ -80,9 +80,7 @@ export default class NewDashboardView extends Component {
   render() {
     return (
       <div id="page-wrapper" style={styles.padded}>
-        <Grid fluid>
-          <ModuleChooser userId={this.userId}/>
-        </Grid>
+        <ModuleChooser userId={this.userId}/>
       </div>
     );
   }
