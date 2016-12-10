@@ -14,18 +14,13 @@ export default class NewDashboard extends Component {
     this.state = {
       userId: props.params.userId
     };
-
-    this.renderContent = this.renderContent.bind(this);
   }
 
-  renderContent(){
-    return (<NewDashboardView userId={this.state.userId}/>);
-  }
   render() {
     return (
-      <NavedContainer userId={this.state.userId}
-                      content={this.renderContent}
-      />
+      <NavedContainer userId={this.state.userId}>
+        <NewDashboardView userId={this.state.userId}/>
+      </NavedContainer>
     );
   }
 }

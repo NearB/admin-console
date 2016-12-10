@@ -17,8 +17,6 @@ export default class NavedContainer extends Component {
     this.state ={
       userId: props.userId != null ? props.userId  : props.params.userId
     };
-
-    this.renderContent = props.content;
   }
 
   render() {
@@ -26,7 +24,7 @@ export default class NavedContainer extends Component {
       <div id="wrapper">
         <DashboardNavBar userId={this.state.userId}/>
         <div id="page-wrapper" style={style}>
-          {this.renderContent()}
+          {this.props.children}
         </div>
       </div>
     );

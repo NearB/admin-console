@@ -42,17 +42,23 @@ export default class CustomCard extends Component {
       transition: `all ${transitionTime}ms ease-out`,
     };
 
+    const imgSize = '327px';
+
     const cardMediaStyle = _.defaults({
       position: 'absolute',
       top: '0',
       cursor: 'pointer',
       boxSizing: 'border-box',
       whiteSpace: 'nowrap',
+      width: '100%',
     }, animatedStyle);
 
     const cardMediaImgStyle = _.defaults({
-      maxWidth: '600px',
-      height: '327px',
+      minWidth: 'initial',
+      maxWidth: imgSize,
+      height: imgSize,
+      marginLeft: `calc((100% - ${imgSize}) / 2)`,  // 'auto' doesn't work with the animation
+      marginRight: `calc((100% - ${imgSize}) / 2)`, // 'auto' doesn't work with the animation
     }, animatedStyle);
 
     const cardMediaOverlayContentStyle = _.defaults({
@@ -84,10 +90,10 @@ export default class CustomCard extends Component {
       });
       _.merge(cardMediaImgStyle, {
         borderRadius: '50%',
-        minWidth: 'initial',
         maxWidth: '40px',
         height: '40px',
         width: '40px',
+        marginLeft: '0',
         marginRight: '16px',
         WebkitUserSelect: 'none',
         backgroundColor: 'rgb(188, 188, 188)',

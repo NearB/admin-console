@@ -26,48 +26,48 @@ function goTo(path) {
 
 function ModuleChooser(props) {
   return (
-      <div>
-        <Row>
-          <Col lg={6} style={styles.padded}>
-            <CustomCard
-                title='Stores'
-                subtitle='Check all your stores'
-                imgUrl={require('../../img/stores.jpg')}
-            >
-              <StoresSmall userId={props.userId}/>
-            </CustomCard>
-          </Col>
-          <Col lg={6} style={styles.padded}>
+    <div>
+      <Row>
+        <Col lg={6} style={styles.padded}>
           <CustomCard
-              title='Warehouse'
-              subtitle='Manage your products in a single place'
-              imgUrl={require('../../img/warehouse.jpg')}
+              title='Stores'
+              subtitle='Check all your stores'
+              imgUrl={require('../../img/stores.jpg')}
           >
-            <ProductsSmall userId={props.userId}/>
+            <StoresSmall userId={props.userId}/>
           </CustomCard>
-          </Col>
-        </Row>
-        <Row>
-          <Col lg={6} style={styles.padded}>
-            <CustomCard
-                title='Marketing'
-                subtitle='Reach more people with Ads and Campaigns'
-                imgUrl={require('../../img/marketing.jpg')}
-                onClick={() => goTo(`/users/${props.userId}/marketing`)}
-            />
-          </Col>
+        </Col>
+        <Col lg={6} style={styles.padded}>
+        <CustomCard
+            title='Warehouse'
+            subtitle='Manage your products in a single place'
+            imgUrl={require('../../img/warehouse.jpg')}
+        >
+          <ProductsSmall userId={props.userId}/>
+        </CustomCard>
+        </Col>
+      </Row>
+      <Row>
+        <Col lg={6} style={styles.padded}>
+          <CustomCard
+              title='Marketing'
+              subtitle='Reach more people with Ads and Campaigns'
+              imgUrl={require('../../img/marketing.jpg')}
+              onClick={() => goTo(`/users/${props.userId}/marketing`)}
+          />
+        </Col>
 
-          <Col lg={6} style={styles.padded}>
-            <CustomCard
-                title='Preferences'
-                subtitle='Choose the setup that better fits your needs'
-                imgUrl={require('../../img/settings_gears-512.jpg')}
-            >
-              <Preferences userId={props.userId}/>
-            </CustomCard>
-          </Col>
-        </Row>
-      </div>
+        <Col lg={6} style={styles.padded}>
+          <CustomCard
+              title='Preferences'
+              subtitle='Choose the setup that better fits your needs'
+              imgUrl={require('../../img/settings_gears-512.jpg')}
+          >
+            <Preferences userId={props.userId}/>
+          </CustomCard>
+        </Col>
+      </Row>
+    </div>
   );
 }
 
@@ -79,11 +79,11 @@ export default class NewDashboardView extends Component {
 
   render() {
     return (
-        <div id="page-wrapper" style={styles.padded}>
-          <Grid>
-            <ModuleChooser userId={this.userId}/>
-          </Grid>
-        </div>
+      <div id="page-wrapper" style={styles.padded}>
+        <Grid fluid>
+          <ModuleChooser userId={this.userId}/>
+        </Grid>
+      </div>
     );
   }
 }
