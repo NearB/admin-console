@@ -42,7 +42,7 @@ export default class CustomCard extends Component {
       transition: `all ${transitionTime}ms ease-out`,
     };
 
-    const imgSize = '327px';
+    const imgSize = '400px';
 
     const cardMediaStyle = _.defaults({
       position: 'absolute',
@@ -119,7 +119,7 @@ export default class CustomCard extends Component {
         <Card
           expanded={this.state.isExpanded}
           onExpandChange={this.handleExpandChange}
-          style={{position: 'relative', minHeight: '327px'}}
+          style={{position: 'relative', minHeight: imgSize}}
         >
           // there's a bug with the actAsExpander property on CardMedia
           <CardMedia
