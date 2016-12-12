@@ -18,32 +18,22 @@ export default class MarketingHome extends Component {
     this.state = {
       userId: props.userId != null ? props.userId  : props.params.userId,
     };
-
-    this.renderContent = this.renderContent.bind(this);
-  }
-
-  renderContent() {
-    return (
-        <div>
-          <Row>
-            <Col lg={12}>
-              <Campaigns userId={this.state.userId}/>
-            </Col>
-          </Row>
-          <Row>
-            <Col lg={12}>
-              <Ads userId={this.state.userId} globalUpdate={this.forceUpdate}/>
-            </Col>
-          </Row>
-        </div>
-    );
   }
 
   render() {
     return (
-        <NavedContainer userId={this.state.userId}
-                        content={this.renderContent}
-        />
+      <NavedContainer userId={this.state.userId}>
+        <Row>
+          <Col lg={12}>
+            <Campaigns userId={this.state.userId}/>
+          </Col>
+        </Row>
+        <Row>
+          <Col lg={12}>
+            <Ads userId={this.state.userId} globalUpdate={this.forceUpdate}/>
+          </Col>
+        </Row>
+      </NavedContainer>
     );
   }
 

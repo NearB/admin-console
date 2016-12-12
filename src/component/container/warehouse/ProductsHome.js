@@ -10,18 +10,13 @@ export default class ProductsHome extends Component {
     this.state = {
       userId: props.userId != null ? props.userId  : props.params.userId
     };
-
-    this.renderContent = this.renderContent.bind(this);
   }
 
-  renderContent(){
-    return (<Products userId={this.state.userId}/>);
-  }
   render() {
     return (
-      <NavedContainer userId={this.state.userId}
-                      content={this.renderContent}
-      />
+      <NavedContainer userId={this.state.userId}>
+        <Products userId={this.state.userId} />
+      </NavedContainer>
     );
   }
 }
