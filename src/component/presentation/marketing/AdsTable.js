@@ -33,52 +33,50 @@ export default class AdsTable extends Component {
 
   render() {
     return (
-        <div>
-          <Panel style={{marginTop: 20}}>
-            <Table height={this.state.height}
-                   fixedHeader={true}>
-              <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-                <TableRow style={{textAlign: "center"}}>
-                  <TableHeaderColumn></TableHeaderColumn>
-                  <TableHeaderColumn>Ad</TableHeaderColumn>
-                  <TableHeaderColumn>
-                    <Fa name="tags" fixedWidth={true}/> Tags
-                  </TableHeaderColumn>
-                  <TableHeaderColumn>
-                    <Fa name="bars" fixedWidth={true}/> Description
-                  </TableHeaderColumn>
-                  <TableHeaderColumn>
-                    <Fa name="key" fixedWidth={true}/> Id
-                  </TableHeaderColumn>
-                  <TableHeaderColumn></TableHeaderColumn>
+      <Panel style={{marginTop: 20}}>
+        <Table height={this.state.height}
+               fixedHeader={true}>
+          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+            <TableRow style={{textAlign: "center"}}>
+              <TableHeaderColumn></TableHeaderColumn>
+              <TableHeaderColumn>Ad</TableHeaderColumn>
+              <TableHeaderColumn>
+                <Fa name="tags" fixedWidth={true}/> Tags
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <Fa name="bars" fixedWidth={true}/> Description
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <Fa name="key" fixedWidth={true}/> Id
+              </TableHeaderColumn>
+              <TableHeaderColumn></TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody displayRowCheckbox={false} showRowHover={true}>
+            {this.state.ads.map((ad) => {
+              // TableRow has to be present here instead of being a separate component
+              // as a workaround for bug where 'showRowHover' is not being propagated
+              return (
+                <TableRow selectable={false} key={ad._id}>
+                  <TableRowColumn  style={{textAlign: "center"}}><Avatar src={ad.img}/></TableRowColumn>
+                  <TableRowColumn>{ad.name}</TableRowColumn>
+                  <TableRowColumn>{ad.tags.join(',')}</TableRowColumn>
+                  <TableRowColumn>{ad.description}</TableRowColumn>
+                  <TableRowColumn>{ad._id}</TableRowColumn>
+                  <TableRowColumn>
+                    <RemoveButton
+                      resource='marketing/ads'
+                      resourceId={ad._id}
+                      onRemove={this.handleRemove}
+                    />
+                  </TableRowColumn>
                 </TableRow>
-              </TableHeader>
-              <TableBody displayRowCheckbox={false} showRowHover={true}>
-                {this.state.ads.map((ad) => {
-                  // TableRow has to be present here instead of being a separate component
-                  // as a workaround for bug where 'showRowHover' is not being propagated
-                  return (
-                    <TableRow selectable={false} key={ad._id}>
-                      <TableRowColumn  style={{textAlign: "center"}}><Avatar src={ad.img}/></TableRowColumn>
-                      <TableRowColumn>{ad.name}</TableRowColumn>
-                      <TableRowColumn>{ad.tags.join(',')}</TableRowColumn>
-                      <TableRowColumn>{ad.description}</TableRowColumn>
-                      <TableRowColumn>{ad._id}</TableRowColumn>
-                      <TableRowColumn>
-                        <RemoveButton
-                          resource='marketing/ads'
-                          resourceId={ad._id}
-                          onRemove={this.handleRemove}
-                        />
-                      </TableRowColumn>
-                    </TableRow>
-                  )
-                })}
-              </TableBody>
-            </Table>
-            <AddAd userId={this.state.userId} onUpdate={this.handleUpdate}/>
-          </Panel>
-        </div>
+              )
+            })}
+          </TableBody>
+        </Table>
+        <AddAd userId={this.state.userId} onUpdate={this.handleUpdate}/>
+      </Panel>
     );
   }
 }

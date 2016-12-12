@@ -5,10 +5,6 @@ import NavedContainer from './../NavedContainer'
 import Campaigns from './Campaigns'
 import Ads from './Ads'
 
-import {
-    Row, Col
-} from 'react-bootstrap';
-
 
 export default class MarketingHome extends Component {
 
@@ -23,16 +19,8 @@ export default class MarketingHome extends Component {
   render() {
     return (
       <NavedContainer userId={this.state.userId}>
-        <Row>
-          <Col lg={12}>
-            <Campaigns userId={this.state.userId}/>
-          </Col>
-        </Row>
-        <Row>
-          <Col lg={12}>
-            <Ads userId={this.state.userId} globalUpdate={this.forceUpdate}/>
-          </Col>
-        </Row>
+        <Campaigns userId={this.state.userId}/>
+        <Ads userId={this.state.userId} globalUpdate={this.forceUpdate}/>
       </NavedContainer>
     );
   }

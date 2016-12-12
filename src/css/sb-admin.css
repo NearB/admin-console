@@ -8,17 +8,20 @@
 
 body {
     margin-top: 100px;
+    height: calc(100% - 100px);
     background-color: #222;
 }
 
 @media(min-width:768px) {
     body {
         margin-top: 50px;
+        height: calc(100% - 50px);
     }
 }
 
 #wrapper {
     padding-left: 0;
+    height: 100%;
 }
 
 #page-wrapper {

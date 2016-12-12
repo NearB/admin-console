@@ -8,6 +8,8 @@ import '../../css/sb-admin.css';
 const style = {
   paddingLeft: '15px',
   paddingRight: '15px',
+  overflowY: 'auto',
+  height: '100%',
 };
 
 export default class NavedContainer extends Component {
