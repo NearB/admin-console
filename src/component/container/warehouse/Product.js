@@ -1,7 +1,8 @@
+// DEPRECATED
 import React, {Component} from 'react';
 
 import DashboardNavBar from '../DashboardNavBar';
-import ContentManager from '../ContentManager';
+import ContentManager from '../stores/ContentManager';
 
 import {
     Row, Col

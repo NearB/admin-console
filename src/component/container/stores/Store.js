@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import NavedContainer from '../NavedContainer';
-import ContentManager from '../ContentManager';
+import ContentManager from './ContentManager';
 import Orders from '../warehouse/Orders';
 import Carts from '../warehouse/Carts';
 
@@ -26,10 +26,10 @@ export default class Store extends Component {
         <Grid fluid>
           <Row>
             <Col lg={6}>
-              <Orders storeId={this.state.storeId}></Orders>
+              <Orders storeId={this.state.storeId} />
             </Col>
             <Col lg={6}>
-              <Carts storeId={this.state.storeId}></Carts>
+              <Carts storeId={this.state.storeId} />
             </Col>
           </Row>
           <Row>
