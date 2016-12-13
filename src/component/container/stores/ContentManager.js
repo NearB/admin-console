@@ -90,7 +90,7 @@ export default class ContentManager extends Component {
                   <TableRowColumn style={{textAlign: "center"}}><Avatar src={item.product.img}/></TableRowColumn>
                   <TableRowColumn>{item.product.name}</TableRowColumn>
                   <TableRowColumn>{item.product.description}</TableRowColumn>
-                  <TableRowColumn style={{textAlign: "right"}}>{item.price}</TableRowColumn>
+                  <TableRowColumn style={{textAlign: "right"}}>{`$${item.price.toFixed(2)}`}</TableRowColumn>
                   <TableRowColumn style={{textAlign: "right"}}>{item.stock}</TableRowColumn>
                   <TableRowColumn>
                     {/* TODO: endpoints to edit stock and remove product from store
