@@ -59,9 +59,6 @@ export default class CampaignsTable extends Component {
                 <Fa name="clock-o" fixedWidth={true}/> Expiration
               </TableHeaderColumn>
               <TableHeaderColumn>
-                <Fa name="bars" fixedWidth={true}/> Description
-              </TableHeaderColumn>
-              <TableHeaderColumn>
                 <Fa name="key" fixedWidth={true}/> Id
               </TableHeaderColumn>
               <TableHeaderColumn></TableHeaderColumn>
@@ -77,7 +74,6 @@ export default class CampaignsTable extends Component {
                   <TableRowColumn>{campaign.tags.join(', ')}</TableRowColumn>
                   <TableRowColumn>{map(campaign.ads, 'name').join(', ')}</TableRowColumn>
                   <TableRowColumn>{campaign.expiration == null ? 'Never' : campaign.expiration}</TableRowColumn>
-                  <TableRowColumn>{campaign.description}</TableRowColumn>
                   <TableRowColumn>{campaign._id}</TableRowColumn>
                   <TableRowColumn>
                     <EditCampaign userId={this.state.userId} ads={this.state.ads} data={campaign}

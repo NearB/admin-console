@@ -44,9 +44,6 @@ export default class AdsTable extends Component {
                 <Fa name="tags" fixedWidth={true}/> Tags
               </TableHeaderColumn>
               <TableHeaderColumn>
-                <Fa name="bars" fixedWidth={true}/> Description
-              </TableHeaderColumn>
-              <TableHeaderColumn>
                 <Fa name="key" fixedWidth={true}/> Id
               </TableHeaderColumn>
               <TableHeaderColumn></TableHeaderColumn>
@@ -61,7 +58,6 @@ export default class AdsTable extends Component {
                   <TableRowColumn  style={{textAlign: "center"}}><Avatar src={ad.img}/></TableRowColumn>
                   <TableRowColumn>{ad.name}</TableRowColumn>
                   <TableRowColumn>{ad.tags.join(',')}</TableRowColumn>
-                  <TableRowColumn>{ad.description}</TableRowColumn>
                   <TableRowColumn>{ad._id}</TableRowColumn>
                   <TableRowColumn>
                     <RemoveButton

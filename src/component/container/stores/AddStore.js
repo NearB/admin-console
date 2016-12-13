@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import StoreModal from '../../presentation/stores/AddStoreModal';
+import StoreModal from '../../presentation/stores/StoreModal';
 import FlatButton from 'material-ui/FlatButton';
 
 import api from 'services/api';

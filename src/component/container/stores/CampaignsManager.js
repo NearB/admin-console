@@ -13,14 +13,9 @@ import {Panel} from 'react-bootstrap';
 import AddProductToStore from './AddProductToStore';
 
 import api from 'services/api';
+import { map } from 'lodash';
 
-const iconButtonElement = (
-    <IconButton touch={true} tooltip="more" tooltipPosition="bottom-left">
-      <MoreVertIcon color={grey400}/>
-    </IconButton>
-);
-
-export default class ContentManager extends Component {
+export default class CampaignsManager extends Component {
 
   constructor(props) {
     super(props);
@@ -37,7 +32,8 @@ export default class ContentManager extends Component {
   }
 
   _fetchContent() {
-    return api(`stores/${this.state.storeId}/products`)
+    //TODO filter expiration
+    return api(`stores/${this.state.storeId}/campaigns`)
       .then((res) => {
         console.log(res);
         this.setState({content: res.data})
@@ -53,38 +49,34 @@ export default class ContentManager extends Component {
 
   render() {
     return (
-      <Panel style={{marginTop: 20}}  header="Products In Stock">
+      <Panel style={{marginTop: 20}}  header="Active Campaigns">
         <Table height={this.state.height}
                fixedHeader={true}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow style={{textAlign: "center"}}>
               <TableHeaderColumn></TableHeaderColumn>
-              <TableHeaderColumn>Product</TableHeaderColumn>
+              <TableHeaderColumn>Name</TableHeaderColumn>
               <TableHeaderColumn>
-                <Fa name="bars" fixedWidth/> Description
+                <Fa name="tags" fixedWidth={true}/> Tags
               </TableHeaderColumn>
-              <TableHeaderColumn style={{textAlign: "center"}}>
-                <Fa name="dollar" fixedWidth/> Price
-              </TableHeaderColumn>
-              <TableHeaderColumn style={{textAlign: "center"}}>
-                Stock
+              <TableHeaderColumn>
+                <Fa name="cubes" fixedWidth={true}/> Ads
               </TableHeaderColumn>
               <TableHeaderColumn></TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false} showRowHover={true}>
-            {this.state.content.map((item) => {
-              if (!item.product) return ; //eslint-disable-line array-callback-return
+            {this.state.content.map((campaign) => {
+              if (!campaign) return ; //eslint-disable-line array-callback-return
               
               // TableRow has to be present here instead of being a separate component
               // as a workaround for bug where 'showRowHover' is not being propagated
               return (
-                <TableRow selectable={false} key={item.product._id}>
-                  <TableRowColumn style={{textAlign: "center"}}><Avatar src={item.product.img}/></TableRowColumn>
-                  <TableRowColumn>{item.product.name}</TableRowColumn>
-                  <TableRowColumn>{item.product.description}</TableRowColumn>
-                  <TableRowColumn style={{textAlign: "right"}}>{`$${item.price.toFixed(2)}`}</TableRowColumn>
-                  <TableRowColumn style={{textAlign: "right"}}>{item.stock}</TableRowColumn>
+                <TableRow selectable={false} key={campaign._id}>
+                  <TableRowColumn style={{textAlign: "center"}}><Avatar src={campaign.img}/></TableRowColumn>
+                  <TableRowColumn>{campaign.name}</TableRowColumn>
+                  <TableRowColumn>{campaign.tags.join(', ')}</TableRowColumn>
+                  <TableRowColumn>{map(campaign.ads, 'name').join(', ')}</TableRowColumn>
                   <TableRowColumn>
                     {/* TODO: endpoints to edit stock and remove product from store
                     <EditProduct  userId={this.state.userId} data={item.product}

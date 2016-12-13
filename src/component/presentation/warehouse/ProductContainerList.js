@@ -91,15 +91,11 @@ export default class ProductContainerList extends Component {
   }
 
   _calculateTotal(products){
-    return products.length > 1
-        ? products.reduce((a, b)=> {return (a.price * 1 * a.quantity) + (b.price * 1 * b.quantity)})
-        : products[0].price * 1 * products[0].quantity
+    return products.map(a=> +a.price * +a.quantity).reduce((a, b)=> a+b, 0);
   }
 
   _calculateItemsTotal(products){
-    return products.length > 1
-        ? products.reduce((a, b)=> {return (+a.quantity + +b.quantity);})
-        : products[0].quantity;
+    return  products.map(a => +a.quantity).reduce((a, b)=> a+b, 0);
   }
 
   render() {

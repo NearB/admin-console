@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 
 import NavedContainer from '../NavedContainer';
 import ContentManager from './ContentManager';
+import CampaignsManager from './CampaignsManager';
+import AdsManager from './AdsManager';
 import Orders from '../warehouse/Orders';
 import Carts from '../warehouse/Carts';
 
@@ -35,6 +37,14 @@ export default class Store extends Component {
           <Row>
             <Col lg={12}>
               <ContentManager storeId={this.state.storeId}/>
+            </Col>
+          </Row>
+          <Row>
+            <Col lg={6}>
+              <CampaignsManager storeId={this.state.storeId}/>
+            </Col>
+            <Col lg={6}>
+              <AdsManager storeId={this.state.storeId}/>
             </Col>
           </Row>
         </Grid>

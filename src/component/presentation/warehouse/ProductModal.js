@@ -67,8 +67,8 @@ export default class ProductModal extends Component {
 
   render() {
     const modalActions = [
-      <FlatButton label="Cancel" primary={true} onTouchTap={this.handleClose}/>,
-      <FlatButton label="Done" primary={true}
+      <FlatButton label="CANCEL" primary={true} onTouchTap={this.handleClose}/>,
+      <FlatButton label="DONE" primary={true}
                   disabled={this.state.disableSubmit}
                   onTouchTap={() => {
                     this.handleSubmit(this.state.current)
@@ -77,13 +77,13 @@ export default class ProductModal extends Component {
 
     return (
         <Dialog title="Product Data" actions={modalActions} modal={true} open={true} autoScrollBodyContent={true}>
-          <TextField floatingLabelText="Product Name" hintText="Barbas Bar" onChange={this.handleNameUpdate}
+          <TextField floatingLabelText="Product Name" hintText="Draft Beer" onChange={this.handleNameUpdate}
                      value={this.state.current.name} />
           <br />
-          <TextField floatingLabelText="Tags" hintText="Beer,Food,UFC" onChange={this.handleTagsUpdate}
+          <TextField floatingLabelText="Tags" hintText="Beer,Belgian,Draft" onChange={this.handleTagsUpdate}
                      value={this.state.current.tags} />
           <br />
-          <TextField floatingLabelText="Img" hintText="http://myimagelink.com/img" onChange={this.handleImgUpdate}
+          <TextField floatingLabelText="Picture" hintText="http://myimagelink.com/img" onChange={this.handleImgUpdate}
                      value={this.state.current.img} />
           <br />
           <TextField floatingLabelText="description" hintText="Long description" multiLine={true}

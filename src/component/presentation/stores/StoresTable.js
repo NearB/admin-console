@@ -6,6 +6,7 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 
 import RemoveButton from '../../shared/RemoveButton';
 import AddStore from '../../container/stores/AddStore';
+import EditStore from '../../container/stores/EditStore';
 
 
 export default class StoresTable extends Component {
@@ -94,6 +95,8 @@ export default class StoresTable extends Component {
                   <TableRowColumn>{store.hasOwnProperty('address') ? store.address : ''}</TableRowColumn>
                   <TableRowColumn>{store._id}</TableRowColumn>
                   <TableRowColumn>
+                    <EditStore  userId={this.state.userId} data={store}
+                                  onUpdate={this.handleUpdate}/>
                     <RemoveButton
                       resource='stores'
                       resourceId={store._id}
