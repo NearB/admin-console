@@ -48,7 +48,12 @@ export default class AddProductToStore extends Component {
   }
 
   handleSubmit(stockData) {
-    return api.put(`stores/${this.props.storeId}/products`, stockData)
+    const content = this.props.content.map( item => ({
+      stock: item.stock,
+      price: item.price,
+      productId: item.product._id
+    }));
+    return api.put(`stores/${this.props.storeId}/products`, content.concat(stockData))
       .then((res) => {
         this.handleClose();
         return this.callback();
@@ -71,6 +76,7 @@ export default class AddProductToStore extends Component {
 }
 
 AddProductToStore.propTypes = {
-  storeId: React.PropTypes.string.isRequired
+  storeId: React.PropTypes.string.isRequired,
+  content: React.PropTypes.array.isRequired
 };
 

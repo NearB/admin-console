@@ -100,7 +100,7 @@ export default class ContentManager extends Component {
             })}
           </TableBody>
         </Table>
-        <AddProductToStore storeId={this.state.storeId} onUpdate={this.handleUpdate}/>
+        <AddProductToStore storeId={this.state.storeId} content={this.state.content} onUpdate={this.handleUpdate}/>
       </Panel>
     );
   }
