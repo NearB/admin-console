@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
 
-import AddProductToStoreModal from '../../presentation/stores/AddProductToStoreModal';
+import AddAdToStoreModal from '../../presentation/marketing/AddAdToStoreModal';
 import FlatButton from 'material-ui/FlatButton';
 
 import api from 'services/api';
 
-export default class AddProductToStore extends Component {
+export default class AddAdToStore extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       showModal: false,
-      products: [],
+      ads: [],
     };
 
     this.callback = props.onUpdate;
@@ -26,10 +26,10 @@ export default class AddProductToStore extends Component {
   }
 
   _fetchProducts() {
-    return api('products')
+    return api('marketing/ads')
       .then((res) => {
         if (res.err == null){
-          this.setState({products: res.data})
+          this.setState({ads: res.data})
         } else {
           console.log(res.err);
         }
@@ -47,13 +47,8 @@ export default class AddProductToStore extends Component {
     this.setState({showModal: true});
   }
 
-  handleSubmit(stockData) {
-    const content = this.props.content.map( item => ({
-      stock: item.stock,
-      price: item.price,
-      productId: item.product._id
-    }));
-    return api.put(`stores/${this.props.storeId}/products`, content.concat(stockData))
+  handleSubmit(data) {
+    return api.put(`stores/${this.props.storeId}/ads`, this.props.current.concat(data))
       .then((res) => {
         this.handleClose();
         return this.callback();
@@ -66,19 +61,18 @@ export default class AddProductToStore extends Component {
   render() {
     return (
       <div style={{textAlign: "right"}}>
-        <FlatButton label="Add Product" primary={true} onTouchTap={this.handleOpen}/>
+        <FlatButton label="Add Ad" primary={true} onTouchTap={this.handleOpen}/>
         {this.state.showModal ?
-          <AddProductToStoreModal onClose={this.handleClose} onSubmit={this.handleSubmit}
-                                  products={this.state.products} existing={this.props.content}
-          />
+          <AddAdToStoreModal onClose={this.handleClose} onSubmit={this.handleSubmit}
+                        ads={this.state.ads}  existing={this.props.current} />
           : null}
       </div>
     );
   }
 }
 
-AddProductToStore.propTypes = {
+AddAdToStore.propTypes = {
   storeId: React.PropTypes.string.isRequired,
-  content: React.PropTypes.array.isRequired
+  current: React.PropTypes.array.isRequired
 };
 

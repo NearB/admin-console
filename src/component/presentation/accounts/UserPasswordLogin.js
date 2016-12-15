@@ -7,13 +7,12 @@ import {
 
 import {browserHistory} from 'react-router';
 
-import Fa from 'react-fontawesome';
 import _s from 'underscore.string';
 import api from 'services/api';
 
-// import Dialog from 'material-ui/Dialog';
-// import FlatButton from 'material-ui/FlatButton';
-// import TextField from 'material-ui/TextField';
+import AuthService from "../../../services/AuthService";
+const auth = new AuthService('Xsby13uXZrXqndMePb2uQaHT86SK99d9', 'alegmarra.auth0.com');
+
 
 export default class UserPasswordLogin extends Component {
 
@@ -70,6 +69,10 @@ export default class UserPasswordLogin extends Component {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  onComponentDidMount(){
+    auth.login();
   }
 
   render(){

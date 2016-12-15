@@ -45,6 +45,7 @@
     "webpack-dev-server": "1.14.1"
   },
   "dependencies": {
+    "auth0-lock": "^10.7.2",
     "bootstrap": "3.3.5",
     "lodash": "^4.17.2",
     "material-ui": "^0.16.4",

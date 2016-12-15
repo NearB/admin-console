@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
 
-import AddProductToStoreModal from '../../presentation/stores/AddProductToStoreModal';
+import AddCampaignToStoreModal from '../../presentation/marketing/AddCampaignToStoreModal';
 import FlatButton from 'material-ui/FlatButton';
 
 import api from 'services/api';
 
-export default class AddProductToStore extends Component {
+export default class AddCampaignToStore extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       showModal: false,
-      products: [],
+      campaigns: [],
     };
 
     this.callback = props.onUpdate;
@@ -22,14 +22,14 @@ export default class AddProductToStore extends Component {
   }
 
   componentDidMount() {
-    this._fetchProducts();
+    this._fetchCampaigns();
   }
 
-  _fetchProducts() {
-    return api('products')
+  _fetchCampaigns() {
+    return api('marketing/campaigns')
       .then((res) => {
         if (res.err == null){
-          this.setState({products: res.data})
+          this.setState({campaigns: res.data})
         } else {
           console.log(res.err);
         }
@@ -47,8 +47,8 @@ export default class AddProductToStore extends Component {
     this.setState({showModal: true});
   }
 
-  handleSubmit(stockData) {
-    return api.put(`stores/${this.props.storeId}/products`, stockData)
+  handleSubmit(data) {
+    return api.put(`stores/${this.props.storeId}/campaigns`, this.props.current.concat(data))
       .then((res) => {
         this.handleClose();
         return this.callback();
@@ -61,16 +61,18 @@ export default class AddProductToStore extends Component {
   render() {
     return (
       <div style={{textAlign: "right"}}>
-        <FlatButton label="Add Product" primary={true} onTouchTap={this.handleOpen}/>
+        <FlatButton label="Add Campaign" primary={true} onTouchTap={this.handleOpen}/>
         {this.state.showModal ?
-          <AddProductToStoreModal onClose={this.handleClose} onSubmit={this.handleSubmit} products={this.state.products}/>
+          <AddCampaignToStoreModal onClose={this.handleClose} onSubmit={this.handleSubmit}
+                              campaigns={this.state.campaigns} existing={this.props.current}/>
           : null}
       </div>
     );
   }
 }
 
-AddProductToStore.propTypes = {
-  storeId: React.PropTypes.string.isRequired
+AddCampaignToStore.propTypes = {
+  storeId: React.PropTypes.string.isRequired,
+  current: React.PropTypes.array.isRequired
 };
 

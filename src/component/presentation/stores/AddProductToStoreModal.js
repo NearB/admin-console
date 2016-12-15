@@ -21,8 +21,8 @@ export default class AddProductToStoreModal extends Component {
 
     this.state = {
       stepIndex: 0,
-      selectedProduct: null,
-      stockData: {},
+      selectedCampaign: null,
+      campaignId: {},
       disableSubmit: true,
     };
 
@@ -36,8 +36,8 @@ export default class AddProductToStoreModal extends Component {
 
   handleClick(product) {
     this.setState({
-      selectedProduct: product,
-      stockData: {
+      selectedCampaign: product,
+      campaignId: {
         productId: product._id,
       },
       stepIndex: 1,
@@ -45,16 +45,16 @@ export default class AddProductToStoreModal extends Component {
   }
 
   handleStockDataUpdate(prop, evt, value) {
-    const stockData = this.state.stockData;
+    const stockData = this.state.campaignId;
     stockData[prop] = value;
-    this.setState({ stockData });
+    this.setState({ campaignId });
     this._toogleSubmit();
   }
 
   _toogleSubmit() {
-    const disable = _s.isBlank(this.state.stockData.productId) ||
-                    _s.isBlank(this.state.stockData.price) ||
-                    _s.isBlank(this.state.stockData.stock);
+    const disable = _s.isBlank(this.state.campaignId.productId) ||
+                    _s.isBlank(this.state.campaignId.price) ||
+                    _s.isBlank(this.state.campaignId.stock);
 
     this.setState({
       disableSubmit: disable,
@@ -67,7 +67,9 @@ export default class AddProductToStoreModal extends Component {
         return (
           <List>
             {/* a search to filter the products might look nice here */}
-            {this.props.products.map((product) => {
+            {this.props.products
+                .filter(c => !this.props.existing.map(e=> e._id).includes(c._id))
+                .map((product) => {
               return (
                 <ListItem key={product._id}
                           leftAvatar={<Avatar src={product.img}/>}
@@ -81,20 +83,19 @@ export default class AddProductToStoreModal extends Component {
       case 1:
         return (
           <div>
-            <h4><Avatar src={this.state.selectedProduct.img}/>{this.state.selectedProduct.name}</h4>
-            <h6><i>TODO: darle fachita</i></h6>
+            <h4><Avatar src={this.state.selectedCampaign.img}/>{this.state.selectedCampaign.name}</h4>
             <TextField
               floatingLabelText="Price"
               hintText="40"
               onChange={this.handleStockDataUpdate.bind(this, 'price')}
-              value={this.state.stockData.price || ''}
+              value={this.state.campaignId.price || ''}
             />
             <br />
             <TextField
               floatingLabelText="Stock"
               hintText="10"
               onChange={this.handleStockDataUpdate.bind(this, 'stock')}
-              value={this.state.stockData.stock || ''}
+              value={this.state.campaignId.stock || ''}
             />
             <br />
           </div>
@@ -112,7 +113,7 @@ export default class AddProductToStoreModal extends Component {
     const modalActions = [
       <FlatButton label='Cancel' primary onTouchTap={this.handleClose}/>,
       <FlatButton label='Back' primary disabled={stepIndex === 0} onTouchTap={() => this.setState({ stepIndex: stepIndex - 1 })} />,
-      <FlatButton label={lastButtonLabel} primary disabled={!selectedProduct || this.state.disableSubmit} onTouchTap={this.handleSubmit.bind(this, this.state.stockData)} />,
+      <FlatButton label={lastButtonLabel} primary disabled={!selectedProduct || this.state.disableSubmit} onTouchTap={this.handleSubmit.bind(this, this.state.campaignId)} />,
     ];
 
     return (
@@ -132,5 +133,6 @@ export default class AddProductToStoreModal extends Component {
 }
 
 AddProductToStoreModal.propTypes = {
-  products: React.PropTypes.array.isRequired
+  products: React.PropTypes.array.isRequired,
+  existing: React.PropTypes.array.isRequired
 };

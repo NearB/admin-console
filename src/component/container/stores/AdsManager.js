@@ -5,7 +5,8 @@ import Avatar from 'material-ui/Avatar';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import Fa from 'react-fontawesome';
 import {Panel} from 'react-bootstrap';
-import AddProductToStore from './AddProductToStore';
+import AddAdToStore from './AddAdToStore';
+import RemoveButton from '../../shared/RemoveButton';
 
 import api from 'services/api';
 
@@ -15,7 +16,7 @@ export default class AdsManager extends Component {
     super(props);
     this.state = {
       storeId: props.storeId != null ? props.storeId : props.params.storeId,
-      content: [],
+      current: [],
     };
 
     this.handleUpdate = this.handleUpdate.bind(this);
@@ -30,7 +31,7 @@ export default class AdsManager extends Component {
     return api(`stores/${this.state.storeId}/ads`)
       .then((res) => {
         console.log(res);
-        this.setState({content: res.data})
+        this.setState({current: res.data})
       })
       .catch((error) => {
         console.log(error);
@@ -57,7 +58,7 @@ export default class AdsManager extends Component {
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false} showRowHover={true}>
-            {this.state.content.map((ad) => {
+            {this.state.current.map((ad) => {
               if (!ad) return ; //eslint-disable-line array-callback-return
               
               // TableRow has to be present here instead of being a separate component
@@ -68,21 +69,20 @@ export default class AdsManager extends Component {
                   <TableRowColumn>{ad.name}</TableRowColumn>
                   <TableRowColumn>{ad.tags.join(', ')}</TableRowColumn>
                   <TableRowColumn>
-                    {/* TODO: endpoints to edit stock and remove product from store
-                    <EditProduct  userId={this.state.userId} data={item.product}
-                                  onUpdate={this.handleUpdate}/>
                     <RemoveButton
-                      resource='products'
-                      resourceId={item.product._id}
-                      onRemove={this.handleRemove}
-                    />*/}
+                        resource={`stores/${this.state.storeId}/ads`}
+                        resourceId={ad._id}
+                        onRemove={this.handleRemove}
+                    />
                   </TableRowColumn>
                 </TableRow>
               )
             })}
           </TableBody>
         </Table>
-        <AddProductToStore storeId={this.state.storeId} onUpdate={this.handleUpdate}/>
+        <AddAdToStore storeId={this.state.storeId} onUpdate={this.handleUpdate}
+
+                      current={this.state.current}/>
       </Panel>
     );
   }
