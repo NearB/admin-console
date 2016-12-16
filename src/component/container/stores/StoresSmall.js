@@ -21,7 +21,7 @@ export default class Stores extends Component {
   }
 
   _fetchStores() {
-    return api('stores')
+    return api(`stores?ownerId=${this.state.userId}`)
       .then((res) => {
         this.setState({stores: res.data})
       })

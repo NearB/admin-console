@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 
 import StoresTable from '../../presentation/stores/StoresTable';
-
 import api from 'services/api';
 
 export default class Stores extends Component {
@@ -26,9 +25,9 @@ export default class Stores extends Component {
   }
 
   _fetchStores() {
-    return api('stores')
+    return api(`stores?ownerId=${this.state.userId}`)
       .then((res) => {
-        // TODO Enrich with orders number (if too slow, do server side)
+        // TODO Enrich with orders number  (if too slow, do server side)
         // const enriched = res.data.map(store => {
         //   return api(`stores/${store._id}/orders?status=PENDING`)
         // });

@@ -21,8 +21,8 @@ export default class AddProductToStoreModal extends Component {
 
     this.state = {
       stepIndex: 0,
-      selectedCampaign: null,
-      campaignId: {},
+      selectedProduct: null,
+      stockData: {},
       disableSubmit: true,
     };
 
@@ -36,8 +36,8 @@ export default class AddProductToStoreModal extends Component {
 
   handleClick(product) {
     this.setState({
-      selectedCampaign: product,
-      campaignId: {
+      selectedProduct: product,
+      stockData: {
         productId: product._id,
       },
       stepIndex: 1,
@@ -45,16 +45,16 @@ export default class AddProductToStoreModal extends Component {
   }
 
   handleStockDataUpdate(prop, evt, value) {
-    const stockData = this.state.campaignId;
+    const stockData = this.state.stockData;
     stockData[prop] = value;
-    this.setState({ campaignId });
+    this.setState({ stockData: stockData });
     this._toogleSubmit();
   }
 
   _toogleSubmit() {
-    const disable = _s.isBlank(this.state.campaignId.productId) ||
-                    _s.isBlank(this.state.campaignId.price) ||
-                    _s.isBlank(this.state.campaignId.stock);
+    const disable = _s.isBlank(this.state.stockData.productId) ||
+                    _s.isBlank(this.state.stockData.price) ||
+                    _s.isBlank(this.state.stockData.stock);
 
     this.setState({
       disableSubmit: disable,
@@ -83,19 +83,19 @@ export default class AddProductToStoreModal extends Component {
       case 1:
         return (
           <div>
-            <h4><Avatar src={this.state.selectedCampaign.img}/>{this.state.selectedCampaign.name}</h4>
+            <h4><Avatar src={this.state.selectedProduct.img}/>{this.state.selectedProduct.name}</h4>
             <TextField
               floatingLabelText="Price"
               hintText="40"
               onChange={this.handleStockDataUpdate.bind(this, 'price')}
-              value={this.state.campaignId.price || ''}
+              value={this.state.stockData.price || ''}
             />
             <br />
             <TextField
               floatingLabelText="Stock"
               hintText="10"
               onChange={this.handleStockDataUpdate.bind(this, 'stock')}
-              value={this.state.campaignId.stock || ''}
+              value={this.state.stockData.stock || ''}
             />
             <br />
           </div>
@@ -113,7 +113,7 @@ export default class AddProductToStoreModal extends Component {
     const modalActions = [
       <FlatButton label='Cancel' primary onTouchTap={this.handleClose}/>,
       <FlatButton label='Back' primary disabled={stepIndex === 0} onTouchTap={() => this.setState({ stepIndex: stepIndex - 1 })} />,
-      <FlatButton label={lastButtonLabel} primary disabled={!selectedProduct || this.state.disableSubmit} onTouchTap={this.handleSubmit.bind(this, this.state.campaignId)} />,
+      <FlatButton label={lastButtonLabel} primary disabled={!selectedProduct || this.state.disableSubmit} onTouchTap={this.handleSubmit.bind(this, this.state.stockData)} />,
     ];
 
     return (

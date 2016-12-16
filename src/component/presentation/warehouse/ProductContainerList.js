@@ -111,7 +111,6 @@ export default class ProductContainerList extends Component {
                         //FIXME try to use <Fa name='check'/> instead
                         <IconMenu iconButtonElement={iconButtonElement}>
                           <MenuItem onTouchTap={()=>{return this._doneWrapper(container);}}>{this.doneLabel}</MenuItem>
-                          <MenuItem onTouchTap={()=>{return this._doneWrapper(container);}}>{this.doneLabel}</MenuItem>
                           <MenuItem onTouchTap={()=>{return this._cancelWrapper(container);}}>{this.cancelLabel}</MenuItem>
                         </IconMenu>
                       }

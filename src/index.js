@@ -23,7 +23,7 @@ const requireAuth = (nextState, replace) => {
   if (!auth.loggedIn()) {
     replace({ pathname: '/' })
   }
-}
+};
 
 const AppRouter = () => (
     <Router history={browserHistory}>
