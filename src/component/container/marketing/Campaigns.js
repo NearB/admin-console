@@ -21,6 +21,10 @@ export default class Campaigns extends Component {
   componentDidMount() {
     this._fetchAds();
     this._fetchCampaigns();
+    setInterval( () => {
+      this._fetchAds();
+      this._fetchCampaigns();
+    }, 1000)
   }
 
   handleCampaignsUpdate(){

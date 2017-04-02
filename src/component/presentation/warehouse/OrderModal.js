@@ -30,7 +30,7 @@ export default class OrderModal extends Component {
     this.data = {
       cartId: props.order.cartId, // sonner than later this would relate to somthing like "Table number"
       clientId: props.order.engagement.split(':')[0],
-      pendingSince: 'TODO', //TODO timestamp to the order
+      pendingSince: new Date(),
       total: props.order.total,
       products: props.order.products
     };
