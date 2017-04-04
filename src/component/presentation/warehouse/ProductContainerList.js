@@ -78,7 +78,7 @@ export default class ProductContainerList extends Component {
   _populateContainers() {
     return api(this.dataUrl)
         .then((res) => {
-          setTimeout(this._populateContainers, 30000);
+          setTimeout(this._populateContainers, 1000);
           this.setState({containers: res.data})
         })
         .catch((error) => {
@@ -102,11 +102,11 @@ export default class ProductContainerList extends Component {
     return (
         <Panel header={this.name}>
           <List>
-            {this.state.containers.map((container) => {
-              if (container.products.length === 0) return ; //eslint-disable-line array-callback-return
+            {this.state.containers && this.state.containers.map((container) => {
+              //if (container.products.length === 0) return ; //eslint-disable-line array-callback-return
               return (
                   <ListItem
-                      leftAvatar={<Avatar>${this._calculateTotal(container.products)}</Avatar>}
+                      leftAvatar={<Avatar src="https://scontent-gru2-1.xx.fbcdn.net/v/t1.0-1/p50x50/15822965_10208239770407633_736879730667886548_n.jpg?oh=8f5c27633d23058e59a68bcc7b5df19d&oe=598F27AC" alt="Ale Marra" title="Ale Marra" />}
                       rightIconButton={
                         //FIXME try to use <Fa name='check'/> instead
                         <IconMenu iconButtonElement={iconButtonElement}>
@@ -115,7 +115,7 @@ export default class ProductContainerList extends Component {
                         </IconMenu>
                       }
                       primaryText={container.status}
-                      secondaryText={`${container._id} Items: ${this._calculateItemsTotal(container.products)}`}
+                      secondaryText={`Client: Ale - Total: $${this._calculateTotal(container.products)}`}
                       secondaryTextLines={2}
                       key={container._id}
                       onTouchTap={this.handleItemSelected.bind(this, container)}
